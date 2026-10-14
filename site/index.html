@@ -662,6 +662,44 @@ body.exmode .tagin { background: var(--ex); color: #fff; }
 #tries h3 { margin: 12px 0 0; }
 #tries .mineadd .line { min-width: 0; }
 a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration: none; }
+
+/* ---------- round 19 ---------- */
+.mast .leave { margin: 0; font: 400 1.02rem/1.5 var(--serif); }
+.mast .ways { display: flex; flex-wrap: wrap; gap: 10px; }
+.savestate { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; font: 500 0.74rem var(--mono); letter-spacing: 0.04em; color: var(--muted); padding: 6px 0; }
+.savestate .sep { color: var(--dot); }
+body.exmode .savestate { display: none; }
+.linkbtn { background: none; border: 0; padding: 0; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.anote .linkbtn { color: var(--you); }
+.anote.missing { display: block; font-size: 0.95rem; border-left-width: 3px; padding-left: 12px; }
+.morepop hr { border: 0; border-top: 1px solid var(--dot); margin: 4px 0; width: 100%; }
+.angrylist { grid-column: 1 / -1; display: grid; gap: 10px; border: 2px solid var(--ink); background: var(--ink); color: var(--paper); padding: 18px 22px; }
+.angrylist h3 { margin: 0; color: var(--paper); }
+.angrylist .muted { color: var(--paper); opacity: 0.75; }
+.angrylist ol { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; font: 400 1.08rem/1.4 var(--serif); }
+body.exmode .angrylist { background: var(--ex); border-color: var(--ex); }
+.audcheck { display: grid; gap: 10px; border: 2px solid var(--ink); padding: 16px 18px; max-width: 640px; }
+.audcheck .lab { font: 500 0.76rem var(--mono); letter-spacing: 0.07em; text-transform: uppercase; }
+.audslots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.audslots .slot { border: 1.5px dashed var(--dot); min-height: 44px; display: grid; place-items: center; font: 500 0.9rem var(--sans); color: var(--muted); text-align: center; padding: 4px; overflow-wrap: anywhere; }
+.audslots .slot.on { border-style: solid; border-color: var(--ink); color: var(--ink); }
+.audslots .slot.done { background: var(--ink); color: var(--paper); }
+body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex); color: #fff; }
+.sp .swk .ex { font-family: var(--serif); font-style: italic; color: var(--sheet-muted); font-size: 1.3cqw; }
+/* phone: tools on their own row, page links full width, steps and project line scroll sideways */
+@media (max-width: 640px) {
+  .row2 { grid-template-columns: 1fr; }
+  .row2 .tools { grid-column: 1 !important; grid-row: 1; justify-content: flex-start; flex-wrap: wrap; padding-top: 8px; }
+  .row2 .subnav { grid-column: 1; grid-row: 2; }
+  .subnav button { padding: 7px 8px; }
+  .steps { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .steps::-webkit-scrollbar { display: none; }
+  .steps button { flex: none; }
+  .projline { flex-wrap: nowrap !important; overflow-x: auto; scrollbar-width: none; }
+  .projline::-webkit-scrollbar { display: none; }
+  .projline button { flex: none; }
+  .audslots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 </style>
 <style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -672,7 +710,8 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
     <div class="kicker">A workbook for self-directed projects</div>
     <h1>Project Planning Toolkit</h1>
     <p class="lede">For taking a project of your own from a hunch to something made, whether it runs for a weekend or a whole term. Find what you want to work on, write a brief, choose how to research it, plan the making, and look back at how you worked. Every step hands you a design move to try.</p>
-    <div><button type="button" class="btn" id="exswitch" data-exswitch="1">See a worked example</button></div>
+    <p class="leave">You leave with a brief, research methods, quick experiments, a plan, and a workbook to print.</p>
+    <div class="ways"><button type="button" class="btn solid" data-go="discover">Help me find an idea</button><button type="button" class="btn" data-go="brief">I already have an idea</button><button type="button" class="btn quiet" id="exswitch" data-exswitch="1">See a worked example</button></div>
   </header>
 
   <div id="topanchor"></div>
@@ -687,9 +726,10 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
     <button type="button" data-go="finale"><span class="num">7</span>Principles</button>
   </nav>
   <div class="row2"><nav class="subnav" id="subnav" aria-label="Pages in this step" hidden></nav>
-    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=18" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
-      <div class="morepop" id="morepop" hidden><button type="button" id="reset">Start a new project</button><small id="reset-note">Clears everything you've written, in this browser only. Print your summary first if you want to keep it.</small></div></span></span></div>
+    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=19" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
+      <div class="morepop" id="morepop" hidden><button type="button" data-savefile="1">Save to a file</button><button type="button" data-loadfile="1">Load from a file</button><small>Carry your project to another device: save it here, then load it there. Loading replaces what's in this browser now.</small><input type="file" id="loadfile" accept=".json,application/json" hidden><hr><button type="button" id="reset">Start a new project</button><small id="reset-note">Clears everything you've written, in this browser only. Print your summary first if you want to keep it.</small></div></span></span></div>
   <div class="projline" id="projline" hidden></div>
+  <div class="savestate" id="savestate"><span>Saved in this browser</span><span class="sep">·</span><button type="button" class="linkbtn" data-savefile="1">Back up to a file</button><span class="muted" id="savemsg"></span></div>
   <div class="exbanner" id="exbanner" hidden><span><b>Worked example:</b> hand-painted shop signs. Look through every step; nothing here can be changed or saved.</span><button type="button" class="btn quiet" data-exswitch="1">Back to my own project</button></div>
   </div>
 
@@ -697,6 +737,7 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
     <div class="pageof">Discover · 1 of 4</div>
     <h2>Spin</h2>
     <p class="intro">You don't need to know what your project is yet. Spin the wheel for a small making task, do it, and note what stuck. Spin as often as you like, and keep the ones that pull at you.</p>
+    <p class="anote">Try one exercise: spin, name, react, or the designer choices. When something pulls at you, move on to your brief. You can come back for more.</p>
     <div class="spinner">
       <div class="reels3">
         <div class="reel" id="reel-v"><span class="lab">Make</span><span class="val" id="v-v">&nbsp;</span></div>
@@ -739,7 +780,7 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
     <h2>React</h2>
     <p class="intro">Forty positions from the Practice Playground deck, one at a time. Don't analyse them; mark your first reaction and move on. You're not choosing one. You're finding out what you react to. <button type="button" class="pbtn" data-pop="react" aria-expanded="false" aria-label="A note from the author">?</button></p>
     <div class="popnote" id="pop-react" hidden>Why sort statements that aren't yours? Reacting is quicker than inventing. Your angry and bin piles often say more about what you care about than your keep pile does.</div>
-    <p class="muted small" style="margin:-16px 0 0" id="deck-note"></p>
+    <p class="muted small" style="margin:-16px 0 0" id="deck-note">You don't have to sort all 40. After ten or so, look at your piles, and stop whenever something stands out.</p>
     <div class="deck" id="deck"></div>
     <div class="piles" id="piles"></div>
     <div id="own"></div>
@@ -750,7 +791,7 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
     <div class="pageof">Discover · 4 of 4</div>
     <h2>What kind of designer are you?</h2>
     <p class="intro">The kind of designer you are is defined by what you choose to care about, and what you refuse to ignore. It shows in the materials you work through, the people you choose to work with and design for, and the values that guide what you make.</p>
-    <p class="intro">Here are twelve pairs. For each one, tap the side you lean towards today. There's no right answer and no score. It's a snapshot of you at the start of this project, and you'll see it again at the very end, to find out what moved.</p>
+    <p class="intro">Here are twelve sets of choices, most of them pairs. For each set, tap the side you lean towards today. There's no right answer and no score. It's a snapshot of you at the start of this project, and you'll see it again at the very end, to find out what moved.</p>
     <p class="anote">Go with your first answer. If you really can't choose, leave the pair blank: a blank is an answer too.</p>
     <div class="pairs" id="pairs-start"></div>
     <div id="pairs-why"></div>
@@ -843,6 +884,7 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
     <div class="popnote" id="pop-plan3" hidden>“Not for this project” is a fine answer. The point is knowing who's there, so that when you need someone, you already know who to ask.</div>
     <p class="intro">This is a networking exercise as much as a plan. Write down everyone you know who touches your project, even loosely: people you know well, people you know a bit, people you only know of. For each one, ask yourself whether it makes sense to contact them now, later, or not for this project.</p>
     <div class="lead"><span class="lab">Small task · <span id="net-lead"></span></span><span class="mtask">Go through your messages from the last month and write down everyone who could help with any part of your project, not only the obvious ones. First names or initials are enough.</span></div>
+    <div class="audcheck" id="audcheck"></div>
     <div class="netgrid"><div class="people" id="people"></div><div class="ringmap" id="ringmap"></div></div>
     <h3>Who to contact this week</h3>
     <div class="handed" id="contacts"></div>
@@ -861,8 +903,10 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
 
   <section class="step" id="end" hidden>
     <h2>Looking back</h2>
-    <p class="intro">Every move acts on something: the material, how the parts are arranged, the setting around the work, the process, the people, or what you notice. Here are the moves you used while discovering and the ones your methods and experiment handed you, sorted by what they act on. The shift between the first two columns is a shift in how you work; the third column shows moves next to yours that you haven't tried.</p>
+    <p class="intro">Start with your project: what you made, and whether it did what you promised. Then look at how you worked.</p>
+    <div class="name4" id="backq"></div>
     <h3>What your moves acted on</h3>
+    <p class="intro">Every move acts on something: the material, how the parts are arranged, the setting around the work, the process, the people, or what you notice. Here are the moves you used while discovering and the ones you actually carried out in your methods and experiment, sorted by what they act on. A method counts once you've written what you found; a try counts once you've written what you noticed. The third column shows moves next to yours that you haven't tried.</p>
     <div class="verdict" id="verdict"></div>
     <div class="kinds" id="kinds"></div>
     <hr class="rule">
@@ -879,7 +923,7 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
     <div class="name4" id="principles"></div>
     <div class="pairsblock">
       <h3>What kind of designer are you now?</h3>
-      <p class="intro" style="margin:0">The same pairs you answered on the React page. Tap where you lean now. The dashed box is where you were at the start; anything that moved is marked.</p>
+      <p class="intro" style="margin:0">The same choices you made on the “What kind of designer” page, at the start. Tap where you lean now. The dashed box is where you were at the start; anything that moved is marked.</p>
       <div class="pairs" id="pairs-end"></div>
       <p class="small" id="pairs-moved"></p>
     </div>
@@ -898,13 +942,13 @@ a.toollink.fblink { color: var(--you); border-color: var(--you); text-decoration
   <section class="step" id="sheet" hidden>
     <h2>Summary</h2>
     <p class="intro">A record of your project on four A4 pages: what you spun, your brief and methods; your experiment, with a log to fill in run by run; your plan, with who can help, a time grid, budget and task list to mark by hand; and your weekly notes, the moves you used and the ones to try next. It fills itself as you work through the other steps, so there is nothing to edit here.</p>
-    <div class="memento"><span><b>To print it, or save it as a PDF:</b> press <kbd>Ctrl</kbd> + <kbd>P</kbd> (Windows) or <kbd>⌘</kbd> + <kbd>P</kbd> (Mac). Choose your printer, or "Save as PDF", set the paper to A4 and the margins to none. Only these four pages print, nothing else on the screen.</span><span class="muted">On a phone: use your browser's Share or menu button, then Print.</span><span class="muted">This browser also remembers your work, but only on this device. To clear it, use ⋯ › Start a new project.</span></div>
+    <div class="memento"><span><b>To print it, or save it as a PDF:</b> press <kbd>Ctrl</kbd> + <kbd>P</kbd> (Windows) or <kbd>⌘</kbd> + <kbd>P</kbd> (Mac). Choose your printer, or "Save as PDF", set the paper to A4 and the margins to none. Only these four pages print, nothing else on the screen.</span><span class="muted">On a phone: use your browser's Share or menu button, then Print.</span><span class="muted">This browser remembers your work on this device. To carry it to another device, use ⋯ › Save to a file, then Load from a file there. To clear it, use ⋯ › Start a new project.</span></div>
     <div class="sheets" id="sheet-view"></div>
     <div class="nextrow"><button class="btn" type="button" data-back="1">Back to where you were</button><span></span></div>
   </section>
 
   <footer class="muted small" style="margin-top:40px;border-top:1px solid var(--dot);padding-top:14px">
-    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Design Operations</a>. Test version 18, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=18&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
+    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Design Operations</a>. Test version 19, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=19&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
   </footer>
   <div id="printroot"></div>
   <div id="measure" aria-hidden="true"></div>
@@ -957,7 +1001,7 @@ const NAMERS = [
 ];
 
 const PARTS_B = [
-  { k: "P", label: "Position", gloss: "An informed opinion you can defend with evidence. Be specific, and look for contradictions: not “phones are bad” but “notifications both connect us and constantly interrupt focus”.",
+  { k: "P", label: "Position", gloss: "An informed opinion you can defend with evidence. Be specific, and look for contradictions: not “phones are bad” but “notifications both connect us and constantly interrupt focus”. It's fine to start with a hunch: the Position research method will test it.",
     fields: [["topic", "Topic", "e.g. hand-painted shop signs"], ["reason", "matters to me because", "e.g. you can see the maker's hand in them"]] },
   { k: "M", label: "Medium", gloss: "How your position becomes something people can encounter: a book, a workshop, a game, a garment, a meal, a projection, a walk, a machine. Choose one you haven't mastered. If you already know how it'll turn out, it's the wrong medium.",
     fields: [["medium", "Using", "e.g. risograph"], ["outcome", "I will create", "e.g. a set of six posters"]] },
@@ -966,7 +1010,7 @@ const PARTS_B = [
   { k: "R", label: "Promise", gloss: "What changes for your audience: what they can do, feel, notice or understand that they couldn't before. Not what you made, but what they get. “A zine about loneliness” is a medium. “So that people living alone realise they're not the only ones” is a promise.",
     fields: [["benefit", "so that they", "e.g. see their own signs as worth keeping"]] },
   { k: "X", label: "Restriction", gloss: "One binding rule, picked from five kinds. Your project must visibly bear its mark: if it would look the same without it, it isn't doing anything. If it makes the project impossible rather than difficult, pick another.",
-    fields: [["limit", "and it must", "e.g. use only two colours"]], kinds: true }
+    fields: [["limit", "and it must", "e.g. be legible from ten metres"]], kinds: true }
 ];
 const RESTRICT = {
   Material: ["be made from found materials only", "use one material only", "contain nothing bought new"],
@@ -1013,7 +1057,7 @@ const KINDS = [
 ];
 const RELWORD = { c: "leads on to", a: "can stand in for", p: "pairs with", e: "goes further as" };
 
-const blank = () => ({ spins: [], cur: null, versions: [], mine: [], ring: "every", named: {}, follow: {}, brief: {}, ans: {}, disc: {}, learn: {}, plan: {}, exp: {}, people: [], pr: ["", "", ""], chal: {}, mmx: [], pairs: { start: {}, end: {}, why: "" }, when: {}, dur: {}, coll: {}, tries: [], trycur: null, view: "discover" });
+const blank = () => ({ spins: [], cur: null, versions: [], mine: [], ring: "every", named: {}, follow: {}, brief: {}, ans: {}, disc: {}, learn: {}, plan: {}, exp: {}, people: [], pr: ["", "", ""], lb: {}, chal: {}, mmx: [], pairs: { start: {}, end: {}, why: "" }, when: {}, dur: {}, coll: {}, tries: [], trycur: null, view: "discover" });
 let S = blank();
 const KEY = "ppt-proto-3";
 function load() { try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(blank(), JSON.parse(raw)); } catch (e) {} }
@@ -1131,7 +1175,7 @@ function renderExp() {
   }).join("");
 }
 function refreshExpCards() { EXPB.forEach(p => { const el = document.querySelector(`[data-exptpl="${p.k}"]`); if (el) el.innerHTML = expFill(p); }); }
-function expMoves() { const s = []; (S.tries || []).forEach(x => { if (x.n && !s.includes(x.n)) s.push(x.n); }); if (X("change") || X("same")) s.push(41); if (S.exp.rung != null) s.push(87); if (X("record") || X("stop")) s.push(5); if (X("happened") || S.exp.decision) s.push(57); return s; }
+function expMoves() { const s = []; (S.tries || []).forEach(x => { if (x.n && (x.noticed || "").trim() && !s.includes(x.n)) s.push(x.n); }); if (X("change") || X("same")) s.push(41); if (S.exp.rung != null) s.push(87); if (X("record") || X("stop")) s.push(5); if (X("happened") || S.exp.decision) s.push(57); return s; }
 
 /* ---------- who can help ---------- */
 const RINGS = ["Close", "Know a bit", "Know of"];
@@ -1172,11 +1216,19 @@ function renderPeople() {
       <select class="line" data-pring="${i}" aria-label="How well you know them">${RINGS.map((r, k) => `<option value="${k}" ${p.ring === k ? "selected" : ""}>${r}</option>`).join("")}</select>
       <button type="button" class="btn quiet" data-pdel="${i}" aria-label="Remove">✕</button></div>
       <div class="chips small"><span class="clab">Could help with</span>${HELP.map(h => `<button type="button" class="chip" data-phelp="${i}:${h[0]}" aria-pressed="${(p.help || []).includes(h[0])}">${h[1]}</button>`).join("")}</div>
-      <div class="chips small"><span class="clab">Contact them</span>${[["now", "Now"], ["later", "Later"], ["no", "Not for this"]].map(([k, l]) => `<button type="button" class="chip" data-pwhen="${i}:${k}" aria-pressed="${(p.when || "now") === k}">${l}</button>`).join("")}</div></div>`).join("") +
+      <div class="chips small"><span class="clab">Contact them</span>${[["now", "Now"], ["later", "Later"], ["no", "Not for this"]].map(([k, l]) => `<button type="button" class="chip" data-pwhen="${i}:${k}" aria-pressed="${(p.when || "now") === k}">${l}</button>`).join("")}</div>
+      <div class="chips small"><span class="clab">Audience</span><button type="button" class="chip" data-paud="${i}" aria-pressed="${!!p.aud}">From my audience</button><button type="button" class="chip" data-preach="${i}" aria-pressed="${!!p.reached}">Reached</button></div></div>`).join("") +
     (people().length < 10 ? `<button type="button" class="btn quiet" data-padd="1">Add a person</button>` : "");
   renderMap();
 }
-function renderMap() {
+function renderAudCheck() {
+  const el = $("#audcheck"); if (!el) return;
+  const au = people().filter(p => (p.name || "").trim() && p.aud), rc = au.filter(p => p.reached).length;
+  el.innerHTML = `<span class="lab">Four people from your audience you can reach this week</span>
+    <div class="audslots">${[0, 1, 2, 3].map(i => { const p = au[i]; return `<span class="slot ${p ? "on" : ""} ${p && p.reached ? "done" : ""}">${p ? esc(p.name.trim()) + (p.reached ? " ✓" : "") : "?"}</span>`; }).join("")}</div>
+    <p class="muted small" style="margin:0">${au.length} of 4 from your audience · ${rc} reached. Tag people below as “From my audience”, and tick “Reached” once you've talked to them. Your audience is who you test with, so reach them early.</p>`;
+}
+function renderMap() { renderAudCheck();
   $("#ringmap").innerHTML = ringSVG(people());
   const c = contacts();
   $("#contacts").innerHTML = c.length ? c.map(({ p, h }) => `<div class="hand"><span class="why">${esc(p.name.trim())} · ${esc(h[1].toLowerCase())} → try</span>${opLink(h[2])}<span class="mtask">${contactText(p, h)}</span></div>`).join("")
@@ -1254,19 +1306,20 @@ const EXAMPLE = {
   react: { order: [], piles: {"0": "keep", "1": "shrug", "2": "keep", "3": "angry", "4": "bin", "5": "keep", "6": "keep", "7": "shrug", "8": "bin", "9": "angry", "10": "keep", "11": "bin", "12": "angry", "13": "shrug", "14": "keep", "15": "shrug", "16": "shrug", "17": "bin", "18": "angry", "19": "keep", "20": "shrug", "21": "angry", "22": "bin", "23": "shrug", "24": "bin", "25": "keep", "26": "bin", "27": "keep", "28": "keep", "29": "keep", "30": "shrug", "31": "shrug", "32": "shrug", "33": "shrug", "34": "keep", "35": "keep", "36": "angry", "37": "keep", "38": "shrug", "39": "bin"} },
   posdraft: { topic: "hand-painted shop signs", reason: "they're a record of a street that a printed sign erases" },
   versions: [{ at: Date.parse("2026-10-19T10:00:00"), b: { topic: "shop signs", reason: "they're everywhere", medium: "photography", outcome: "a photo book", audience: "people who like design", benefit: "notice them", limit: "fit in a pocket" } },
-    { at: Date.parse("2026-10-21T16:00:00"), b: { topic: "hand-painted shop signs", reason: "you can see the maker's hand in them", medium: "risograph", outcome: "a set of six posters", audience: "shopkeepers on my high street", benefit: "notice their own signs", limit: "use only two colours" } },
-    { at: Date.parse("2026-10-27T11:00:00"), b: { topic: "hand-painted shop signs", reason: "you can see the maker's hand in them, and they're disappearing", medium: "risograph", outcome: "a set of six posters", audience: "shopkeepers on my high street", benefit: "see their own signs as worth keeping", limit: "use only two colours" } }],
+    { at: Date.parse("2026-10-21T16:00:00"), b: { topic: "hand-painted shop signs", reason: "you can see the maker's hand in them", medium: "risograph", outcome: "a set of six posters", audience: "shopkeepers on my high street", benefit: "notice their own signs", limit: "be legible from ten metres" } },
+    { at: Date.parse("2026-10-27T11:00:00"), b: { topic: "hand-painted shop signs", reason: "you can see the maker's hand in them, and they're disappearing", medium: "risograph", outcome: "a set of six posters", audience: "shopkeepers on my high street", benefit: "see their own signs as worth keeping", limit: "be legible from ten metres" } }],
   named: { weird: "hand-painted shop signs", quest: "why do new shops all use the same fonts?", notd: "chatting to the newsagent every morning" },
-  brief: { topic: "hand-painted shop signs", reason: "you can see the maker's hand in them, and they're disappearing", medium: "risograph", outcome: "a set of six posters", audience: "shopkeepers on my high street", benefit: "see their own signs as worth keeping", limit: "use only two colours" },
+  brief: { topic: "hand-painted shop signs", reason: "you can see the maker's hand in them, and they're disappearing", medium: "risograph", outcome: "a set of six posters", audience: "shopkeepers on my high street", benefit: "see their own signs as worth keeping", limit: "be legible from ten metres" },
   ans: { P: 1, A: 0, M: 1, R: 2 },
   disc: { P: "what I'm assuming about why signs disappear", A: "how shopkeepers treat their own signs", M: "where riso ink stops looking printed", R: "whether a poster changes how a sign is seen" },
   learn: { P: "the sign painted badly on purpose got more attention than the neat one", A: "three of five shopkeepers never look at their own sign", M: "two layers of ink start to look hand-painted from a distance", R: "next to the shop, the poster made people look up at the real sign" },
   exp: { q: "a riso print reads as hand-made from across the street", expect: "only the biggest letters will", change: "the letter size", same: "colour, paper and a 10-metre viewing distance", rung: 3, record: "a photo from 10 metres and one line", stop: "six prints, or Friday", happened: "the smallest letters read best, because the ink spread", decision: "change one thing" },
-  people: [{ name: "Mrs K (newsagent)", ring: 1, help: ["reach", "test"], when: "now" }, { name: "Sam", ring: 0, help: ["make"], when: "now" }, { name: "Jo", ring: 0, help: ["advice"], when: "later" }, { name: "Print room tech", ring: 1, help: ["space", "make"], when: "now" }, { name: "Local history group", ring: 2, help: ["reach"], when: "later" }, { name: "R (sign painter)", ring: 2, help: ["advice"], when: "no" }],
+  people: [{ name: "Mrs K (newsagent)", ring: 1, help: ["reach", "test"], when: "now", aud: true, reached: true }, { name: "Sam", ring: 0, help: ["make"], when: "now" }, { name: "Jo", ring: 0, help: ["advice"], when: "later" }, { name: "Print room tech", ring: 1, help: ["space", "make"], when: "now" }, { name: "Local history group", ring: 2, help: ["reach"], when: "later" }, { name: "A (baker)", ring: 2, help: ["test"], when: "now", aud: true, reached: true }, { name: "D (key cutter)", ring: 2, help: ["test"], when: "now", aud: true }, { name: "R (sign painter)", ring: 2, help: ["advice"], when: "no" }],
   plan: { succ: "two shopkeepers ask to keep a poster", fail: "nobody outside my studio sees it", ph1: "one test print", need1: "a riso induction", safe1: "1", ph2: "show it on the high street", need2: "the test print, and Mrs K's OK", safe2: "1", ph3: "the set of six", need3: "two riso sessions and paper", budget: "40", end: "2026-11-06" },
   when: { P: "Monday evening", A: "Tuesday, 7 to 9am", M: "Wednesday in the print room", R: "Saturday morning" }, dur: { P: "45 minutes", A: "two hours", M: "one session", R: "one hour" }, coll: { P: true, A: true, M: true, R: true },
   tries: [{ t: "Make three quick versions of a set of six posters, changing only the size. Put them side by side and look.", n: 41, noticed: "the small one looked the most hand-made" }, { t: "Put one rough piece in three different places, changing nothing else. Note how it reads in each.", n: 27, noticed: "in the shop window, people read it as the shop's own sign", pull: true }, { t: "Toss a coin to decide the colour of your next piece, and make it the way the coin says.", n: 15, noticed: "the blue I'd never have picked works on the yellow paper" }],
   trycur: { ti: 1, vi: 0 },
+  lb: { made: "six riso posters of the high street's hand-painted signs, shown in the shop windows", promise: "partly: two shopkeepers kept a poster, and one repainted her lettering", changed: "the tries moved me from neat letters to rough ones, and from my studio wall to the shop windows" },
   pr: ["I print before I'm sure", "the hand that made it", "the final layout"],
   chal: { av: 0, what: "Ask five shopkeepers on my high street what their sign says about their shop", much: "one morning, five shops", done: "five answers, or 11am, whichever comes first", back: "a photo of each sign with their answer written under it", ck: [true, true, true, true] },
   mmx: [{ m: "photography", q: "fw" }, { m: "digital illustration", q: "fw" }, { m: "risograph", q: "uw" }, { m: "screen printing", q: "uw" }, { m: "sign-painting with a brush", q: "ui" }, { m: "ceramics", q: "ui" }, { m: "animation", q: "fi" }],
@@ -1335,7 +1388,7 @@ const POSITIONS = [
   "Talking about the weather is not small talk. It’s the last subject strangers are still allowed to share.",
   "Copying something you love, exactly, teaches more than making something original badly.",
   "Second-hand clothes carry their previous owner. That’s the appeal, not the discount.",
-  "Telling someone you love them should be rationed. Said daily it becomes furniture; said rarely it can end an argument.",
+  "You should keep one room, one drawer, one hour a day that the person you live with has no access to. Love without a locked door curdles.",
   "Strangers can identify you by your walk. You can’t. You should study it like you study your face.",
   "The people filming the concert aren’t missing the moment. They’re the only ones who believe it’s worth keeping.",
   "Eating the same lunch every day isn’t boring, it’s freedom. The decision spent once, reclaimed daily.",
@@ -1366,6 +1419,7 @@ function renderReact() {
     (r.showShrug && shrugN ? `<div class="shrugpile">${pile("shrug", "Shrug", "also data")}</div>` : "") : "";
   const ofPile = k => POSITIONS.filter((_, j) => r.piles[j] === k);
   const angry = ofPile("angry"), keep = ofPile("keep"), bin = ofPile("bin");
+  if (angry.length) $("#piles").insertAdjacentHTML("beforeend", `<div class="angrylist"><h3>Your angry cards (${angry.length})</h3><p class="muted small" style="margin:0">All in one place, to show someone or to compare.</p><ol>${angry.map(p => `<li>${esc(p)}</li>`).join("")}</ol></div>`);
   const pd = S.posdraft && typeof S.posdraft === "object" ? S.posdraft : { topic: "", reason: "" };
   const task = (n, html) => `<div class="lead"><span class="lab">Small task · ${opLink(n, "oplink-lab")}</span><span class="mtask">${html}</span></div>`;
   $("#own").innerHTML = (angry.length || keep.length || bin.length) ? `<div class="namer"><span class="q">Now write your own</span>
@@ -1439,7 +1493,7 @@ function renderRecap() {
   $("#follow").innerHTML = items.length ? `<h3>From your spins</h3>` + items.map(s => {
     const key = spinKey(s), stuck = s[3].trim(), f = S.follow[key] || {};
     return `<div class="fcard"><div class="lead"><span class="lab">What stuck · ${esc(BY[RO[s[2]][0]].name)}</span><span class="q">${esc(stuck)}</span></div>
-      <div class="lead"><span class="lab">Small task · ${opLink(51, "oplink-lab")}</span><span class="mtask">Find two more things around you that have <mark>${esc(stuck)}</mark> too. Then write the rule that links all three; stop when you can name a case that would break it.</span>${seenIn(g)}</div>
+      <div class="lead"><span class="lab">Small task · ${opLink(51, "oplink-lab")}</span><span class="mtask">Find two more things around you that share what stuck. Then write the rule that links all three; stop when you can name a case that would break it.</span>${seenIn(g)}</div>
       <div class="twocol"><div class="field"><label for="fm-${key}">Two more things</label><textarea class="box" id="fm-${key}" data-fmore="${key}" rows="2" placeholder="e.g. a missing tile, a faded poster">${esc(f.more || "")}</textarea></div>
       <div class="field"><label for="fr-${key}">The rule that links them</label><textarea class="box" id="fr-${key}" data-frule="${key}" rows="2" placeholder="e.g. things that show what used to be there">${esc(f.rule || "")}</textarea></div></div>
       <div data-fhand="${key}">${followHand(key, stuck)}</div></div>`;
@@ -1448,7 +1502,7 @@ function renderRecap() {
 }
 function handHTML(k) {
   const nm = NAMERS.find(x => x.k === k), v = (S.named[k] || "").trim(), o = BY[nm.n];
-  return v ? `<div class="hand"><span class="why">Because you named ${esc(v)} → try</span>${opLink(nm.n)}<span class="mtask">${fill(nm.tpl, { it: v })}</span>${seenIn(o)}<div><button class="btn quiet" type="button" data-topic="${k}">Use as my topic</button></div></div>` : "";
+  return v ? `<div class="hand"><span class="why">Because you named this → try</span>${opLink(nm.n)}<span class="mtask"><span class="pq">“${esc(v)}”</span><span class="do">${fill(nm.tpl.replace(/\{it\}/g, "it"))}</span></span>${seenIn(o)}<div><button class="btn quiet" type="button" data-topic="${k}">Use as my topic</button></div></div>` : "";
 }
 function renderNamers() {
   $("#name4").innerHTML = NAMERS.map(nm => { const L = BY[nm.lead]; return `<div class="namer"><span class="q">${nm.label}</span>
@@ -1568,7 +1622,7 @@ function ideasHTML(k) {
   return `<details class="ideas" data-ideas="${k}"><summary>Ideas: ${I.label.toLowerCase()}${I.mode === "append" ? " · build it up in order" : ""}</summary><p class="inote">${esc(I.note)}</p>${Object.entries(I.groups).map(([g, items]) => `<div class="igroup"><span class="lab">${esc(g)}</span><div class="chips">${items.map(v => `<button type="button" class="chip" data-idea="${k}" data-v="${esc(v)}" aria-pressed="${I.mode === "append" ? cur.includes(v.toLowerCase()) : cur === v.toLowerCase()}">${esc(v)}</button>`).join("")}</div></div>`).join("")}</details>`;
 }
 function restrictHTML() {
-  return `<details class="ideas" data-ideas="X"><summary>Ideas: five kinds of restriction</summary><p class="inote">Pick one, or draw one at random. Then check it changes what you make.</p><div class="rkinds">${Object.entries(RESTRICT).map(([kind, opts]) => `<div class="rkind"><span class="lab">${kind}</span><div class="chips">${opts.map(o => `<button type="button" class="chip" data-restrict="${esc(o)}" aria-pressed="${val("limit") === o}">${esc(o)}</button>`).join("")}</div></div>`).join("")}
+  return `<details class="ideas" data-ideas="X"><summary>Ideas: five kinds of restriction</summary><p class="inote">Pick one, or draw one if you're stuck. Then check it changes what you make.</p><div class="rkinds">${Object.entries(RESTRICT).map(([kind, opts]) => `<div class="rkind"><span class="lab">${kind}</span><div class="chips">${opts.map(o => `<button type="button" class="chip" data-restrict="${esc(o)}" aria-pressed="${val("limit") === o}">${esc(o)}</button>`).join("")}</div></div>`).join("")}
     <div><button type="button" class="btn quiet" data-restrict-draw="1">Draw one at random</button></div></div></details>`;
 }
 function renderParts() {
@@ -1589,6 +1643,7 @@ function resultHTML(m, a) {
         <span class="because">Because you said <b>${esc(opt[0].toLowerCase())}</b>${fv ? ` about <b>${esc(fv)}</b>` : ""}, the move is</span>
         ${opLink(opt[1])}
         <span class="mtask">${fill(opt[2])}</span>
+        ${(() => { const miss = [...new Set((opt[2].match(/\{(\w+)\}/g) || []).map(x => x.slice(1, -1)))].filter(k => !val(k)); return miss.length ? `<span class="anote missing">Your brief doesn't have ${miss.map(k => esc(GAP[k] || k)).join(" or ")} yet. <button type="button" class="linkbtn" data-go="brief">Add it to your brief</button>, or try this with what you have.</span>` : ""; })()}
         <span class="orig"><b>The move in general:</b> ${esc(o.task)}</span>
         ${seenIn(o)}</div>
         <div class="fills">
@@ -1693,17 +1748,25 @@ function refreshChain() { const el = $("#chainread"); if (el) el.innerHTML = cha
 function refreshPlanCards() { PLANS.forEach(p => { const el = document.querySelector(`[data-plantpl="${p.k}"]`); if (el) el.innerHTML = planFill(p); }); }
 
 /* ---------- looking back ---------- */
+const LBQ = [["made", "What did you make?", "Say it plainly, as you'd tell a friend.", "e.g. six riso posters of the high street's signs, shown in the shop windows"],
+  ["promise", "Did it do what your promise said?", "", "e.g. partly: two shopkeepers kept a poster, and one repainted her lettering"],
+  ["changed", "What changed because of your research or your tries?", "Name one decision you made differently because of something you found or noticed.", "e.g. the tries moved me from neat letters to rough ones, and from my wall to shop windows"]];
+function renderBack() {
+  const el = $("#backq"); if (!el) return; const lb = S.lb || {};
+  el.innerHTML = LBQ.map(([k, q, hint, ph]) => `<div class="namer"><span class="q">${q}</span>${k === "promise" ? `<p class="muted small" style="margin:0">${val("benefit") ? `Your promise was that ${esc(val("audience") || "your audience")} would ${esc(val("benefit"))}.` : "Your brief doesn't have a promise yet."}</p>` : hint ? `<p class="muted small" style="margin:0">${hint}</p>` : ""}
+    <div class="field"><label for="lb-${k}">${q}</label><textarea class="box" id="lb-${k}" data-lb="${k}" rows="2" placeholder="${esc(ph)}">${esc(lb[k] || "")}</textarea></div></div>`).join("");
+}
 function beforeMoves() {
   const s = new Set(S.spins.map(x => RO[x[2]][0]));
   NAMERS.forEach(nm => { if ((S.named[nm.k] || "").trim()) { s.add(nm.lead); s.add(nm.n); } });
   if (Object.values(S.follow).some(f => (f.rule || "").trim())) s.add(51);
   return [...s];
 }
-function afterMoves() { const s = new Set(); METHODS.forEach(m => { const o = chosen(m); if (o) s.add(o[1]); }); expMoves().forEach(n => s.add(n)); return [...s]; }
+function afterMoves() { const s = new Set(); METHODS.forEach(m => { const o = chosen(m); if (o && (S.learn[m.k] || "").trim()) s.add(o[1]); }); expMoves().forEach(n => s.add(n)); return [...s]; }
 function byKind(list) { const r = {}; KINDS.forEach(k => r[k[0]] = []); list.forEach(n => [...BY[n].o].forEach(c => r[c] && r[c].push(n))); return r; }
 function verdictText() {
   const B = beforeMoves(), A = afterMoves(), b = byKind(B), a = byKind(A);
-  if (!B.length && !A.length) return "Keep a few spins and answer your method questions; this is where you'll see how your way of working moved.";
+  if (!B.length && !A.length) return "Keep a few spins, and write what you found with your methods; this is where you'll see how your way of working moved.";
   const top = r => KINDS.map(k => [k, r[k[0]].length]).filter(x => x[1]).sort((x, y) => y[1] - x[1]);
   const tb = top(b), ta = top(a), name = k => k[1].toLowerCase();
   const newK = ta.filter(x => !b[x[0][0]].length).map(x => name(x[0]));
@@ -1747,6 +1810,7 @@ function sheetHTML() {
   const methods = METHODS.map(m => { const opt = chosen(m); if (!opt) return `<div class="sm"><span class="lab">${m.label} · ${m.ask}</span>${ln("Move", "")}${ln("", "")}${ln("To discover", "")}${ln("Learnt", "")}${ln("", "")}</div>`; const o = BY[opt[1]]; return `<div class="sm"><span class="lab">${m.label} · ${m.ask}</span><span class="nm">${esc(o.name)}</span><span class="ser">${fill(opt[2], null, true)}</span><span class="ex">Seen in: ${esc(o.ex)}</span>${ln("To discover", S.disc[m.k])}${ln("When · how long", [(S.when || {})[m.k], (S.dur || {})[m.k]].filter(x => (x || "").trim()).join(" · "))}${ln("Learnt", S.learn[m.k])}${ln("", "")}</div>`; }).join("");
   const p1 = `<div class="sheet"><div class="sp">${head("1 of 4 · Discover, brief, methods")}
     <h4>Discover</h4><div class="two">${kept}</div><div class="two">${named}</div>
+    ${(() => { const rr = S.react && S.react.piles ? S.react.piles : {}, pl = k => POSITIONS.filter((_, j) => rr[j] === k), cap = a => a.slice(0, 6).map(p => `<span class="ex">“${esc(p)}”</span>`).join("") + (a.length > 6 ? `<span class="ex">and ${a.length - 6} more</span>` : ""); const kp = pl("keep"), an = pl("angry"); return kp.length || an.length ? `<div class="two"><div class="sm"><span class="lab">Keep pile · ${kp.length}</span>${cap(kp)}</div><div class="sm"><span class="lab">Angry pile · ${an.length}</span>${cap(an)}</div></div>` : ""; })()}
     <h4>Brief</h4>
     <div class="sbrief">${f("topic")} matters to me because ${f("reason")}. Using ${f("medium")}, I will create ${f("outcome")} for ${f("audience")} so that they ${f("benefit")}, and it must ${f("limit")}.</div>
     ${(S.versions || []).length > 1 ? `<div class="sm"><span class="lab">Earlier versions</span>${(S.versions || []).slice(0, -1).slice(-3).reverse().map(x => `<span class="ex">${esc(new Date(x.at).toLocaleDateString("en-GB", { day: "numeric", month: "short" }))}: ${esc(briefSentence(x.b))}</span>`).join("")}</div>` : ""}
@@ -1757,7 +1821,8 @@ function sheetHTML() {
     <div class="grow"></div>
     <div class="sfoot"><span>Start with the smallest version that still delivers.</span><span>Moves from Design Operations · operations.ramos-saavedra.com</span></div></div></div>`;
   const PAPER = S.paper || {};
-  const weeks = [1, 2, 3].map(w => `<div><b>Week ${w}</b>${GUT.map((l, i) => ln(l, ((PAPER.weeks || {})[w] || [])[i] || "")).join("")}</div>`).join("");
+  const FOCUS = ["Is your brief clear?", "Does your prototype work?", "Does what you made do what your promise says?"];
+  const weeks = [1, 2, 3].map(w => `<div><b>Week ${w}</b><span class="ex">${FOCUS[w - 1]}</span>${GUT.map((l, i) => ln(l, ((PAPER.weeks || {})[w] || [])[i] || "")).join("")}</div>`).join("");
   const B = beforeMoves(), b = byKind(B), a = byKind(afterMoves()), x = byKind(suggestions().map(s => s[0]));
   const kinds = `<div class="h">Acts on</div><div class="h">Discovering</div><div class="h">Methods</div><div class="h">Next</div>` + KINDS.map(([c, nm]) => `<div class="k">${nm}</div><div>${b[c].map(n => esc(BY[n].name)).join(", ")}</div><div>${a[c].map(n => esc(BY[n].name) + (B.includes(n) ? "" : " ●")).join(", ")}</div><div>${x[c].map(n => esc(BY[n].name)).join(", ")}</div>`).join("");
   const sg = suggestions().map(([n]) => `<div class="sm"><span class="nm">${esc(BY[n].name)}</span><span class="ser">${esc(BY[n].task)}</span></div>`).join("");
@@ -1765,7 +1830,9 @@ function sheetHTML() {
   const p2 = `<div class="sheet"><div class="sp">${head("4 of 4 · Weekly notes and looking back")}
     <h4>Weekly notes · fill in by hand at the end of each week</h4><div class="swk">${weeks}</div>
     <div class="ser" style="color:var(--sheet-muted)">Stuck? Tick what's wrong at operations.ramos-saavedra.com/#stuck and each tick hands you a move.</div>
-    <h4>Looking back · what your moves acted on</h4><div class="skinds">${kinds}</div>
+    <h4>Looking back</h4>
+    <div class="two"><div class="sm">${ln("What I made", (S.lb || {}).made)}${ln("Did it keep its promise?", (S.lb || {}).promise)}</div><div class="sm">${ln("What changed because of what I found", (S.lb || {}).changed)}${ln("", "")}</div></div>
+    <h4>What my moves acted on</h4><div class="skinds">${kinds}</div>
     <div class="ser">${esc(verdictText())} <span style="color:var(--sheet-muted)">● new to you</span></div>
     <h4>Moves to look into next</h4><div class="two">${sg || ln("", "")}</div>
     <h4>Three principles</h4><div>${pr}</div>
@@ -1790,7 +1857,7 @@ function sheetHTML() {
     <div><span class="endbox">The project ends on ${esc(endTxt)}</span> <span class="note">Set the end while it still works, and keep to it.</span></div>
     <div class="tg">${grid(1)}${grid(2)}${grid(3)}</div>
     <div class="two"><div class="sm"><h4>Budget</h4>${budgetLines}<span class="note">Lay everything out before you start; fetch nothing new once started.</span></div>
-      <div class="sm"><h4>Who can help</h4><div class="smap">${ringSVG(people(), 220)}</div>${contacts().map(({ p, h }) => ln(p.name.trim(), h[1] + " · " + BY[h[2]].name)).join("") || ln("Contact this week", "")}</div></div>
+      <div class="sm"><h4>Who can help</h4><div class="smap">${ringSVG(people(), 220)}</div>${contacts().map(({ p, h }) => ln(p.name.trim(), h[1] + " · " + BY[h[2]].name)).join("") || ln("Contact this week", "")}${(() => { const au = people().filter(p => (p.name || "").trim() && p.aud); return `<span class="lab" style="margin-top:1cqw">Four from my audience · ✓ reached</span>` + [0, 1, 2, 3].map(i => ln(String(i + 1), au[i] ? au[i].name.trim() + (au[i].reached ? "  ✓" : "") : "")).join(""); })()}</div></div>
     <h4>Tasks · specific enough to start today</h4>
     <div class="tasks"><div class="h t" style="justify-content:flex-start">Task</div><div class="h">Do first</div><div class="h">Schedule</div><div class="h">Minimise</div><div class="h">Rethink</div>${taskRows}</div>
     <span class="note">Ticked Rethink? Decide it's gone and let it go (ARCHIVE).</span>
@@ -1843,12 +1910,36 @@ function renderSheet() {
   const h = m.innerHTML; m.innerHTML = ""; $("#sheet-view").innerHTML = h; $("#printroot").innerHTML = PRINTCARDS && collected().length ? fitSheets(cardsHTML()) : h;
 }
 
+/* ---------- save to a file, load from a file ---------- */
+function saveFile() {
+  const data = JSON.stringify({ app: "project-planning-toolkit", version: 19, saved: new Date().toISOString(), state: S });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([data], { type: "application/json" }));
+  a.download = "my-project-" + new Date().toISOString().slice(0, 10) + ".json";
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  const m = $("#savemsg"); if (m) { m.textContent = "Saved to your downloads."; setTimeout(() => { m.textContent = ""; }, 4000); }
+}
+function loadFile(file) {
+  const r = new FileReader();
+  r.onload = () => {
+    let d = null; try { d = JSON.parse(r.result); } catch (e) {}
+    const m = $("#savemsg");
+    if (!d || d.app !== "project-planning-toolkit" || !d.state || typeof d.state !== "object") { if (m) m.textContent = "That file isn't a saved project."; return; }
+    if (EXMODE) toggleExample();
+    S = Object.assign(blank(), d.state); save();
+    $("#morepop").hidden = true; show(S.view || "discover"); toTop();
+    if (m) { m.textContent = "Project loaded."; setTimeout(() => { m.textContent = ""; }, 4000); }
+  };
+  r.readAsText(file);
+}
+
 /* ---------- wiring ---------- */
-function renderAll() { renderReact(); renderChal(); renderPairs(); renderColl(); renderFindings(); renderTries(); renderVersions(); renderMine(); renderProjline(); renderPrinciples(); renderExp(); renderPeople(); renderReels(); renderKept(); renderRecap(); renderNamers(); renderParts(); $("#b-sentence").innerHTML = sentenceHTML(); renderMethods(); renderPlan(); renderEnd(); renderSheet(); }
+function renderAll() { renderBack(); renderReact(); renderChal(); renderPairs(); renderColl(); renderFindings(); renderTries(); renderVersions(); renderMine(); renderProjline(); renderPrinciples(); renderExp(); renderPeople(); renderReels(); renderKept(); renderRecap(); renderNamers(); renderParts(); $("#b-sentence").innerHTML = sentenceHTML(); renderMethods(); renderPlan(); renderEnd(); renderSheet(); }
 function show(view) {
   if (!document.getElementById(view) || view === "locked") view = "discover";
   S.view = view; if (view !== "methods") PRINTCARDS = false;
-  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=18&page=" + encodeURIComponent(view); }
+  try { if (location.hash !== "#" + view) history.replaceState(null, "", "#" + view); } catch (e) {}
+  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=19&page=" + encodeURIComponent(view); }
   const L = lockOf(view), shown = L ? "locked" : view;
   if (L) renderLocked(view, L);
   document.querySelectorAll("section.step").forEach(s => s.hidden = s.id !== shown);
@@ -1869,6 +1960,8 @@ document.addEventListener("click", e => {
   if (e.target.closest("[data-printcards]")) { PRINTCARDS = true; renderSheet(); renderColl(); return; }
   if (e.target.closest("[data-printcards-off]")) { PRINTCARDS = false; renderSheet(); renderColl(); return; }
   const bk = e.target.closest("[data-back]"); if (bk) { show(S.last || "discover"); toTop(); return; }
+  if (e.target.closest("[data-savefile]")) { if (EXMODE) toggleExample(); saveFile(); return; }
+  if (e.target.closest("[data-loadfile]")) { $("#loadfile").click(); return; }
   if (e.target.closest("#more")) { const p = $("#morepop"); p.hidden = !p.hidden; $("#more").setAttribute("aria-expanded", String(!p.hidden)); return; }
   if (e.target.closest("#reset")) {
     if (EXMODE) toggleExample();
@@ -1907,6 +2000,8 @@ document.addEventListener("click", e => {
   const tpu = e.target.closest("[data-trypull]"); if (tpu && !EXMODE) { const x = S.tries[+tpu.dataset.trypull]; x.pull = !x.pull; renderTries(); save(); return; }
   const tdl = e.target.closest("[data-trydel]"); if (tdl && !EXMODE) { S.tries.splice(+tdl.dataset.trydel, 1); renderTries(); markLocks(); save(); return; }
   if (e.target.closest("[data-addstep]") && !EXMODE) { S.plan.nsteps = Math.min(5, Math.max(3, (chainSteps().slice(-1)[0] || 0) + 1, +(S.plan.nsteps || 0)) + 1); renderPlan(); lockInputs(); save(); return; }
+  const pa = e.target.closest("[data-paud]"); if (pa && !EXMODE) { const p = people()[+pa.dataset.paud]; p.aud = !p.aud; renderPeople(); save(); return; }
+  const prc = e.target.closest("[data-preach]"); if (prc && !EXMODE) { const p = people()[+prc.dataset.preach]; p.reached = !p.reached; if (p.reached) p.aud = true; renderPeople(); save(); return; }
   const pw = e.target.closest("[data-pwhen]"); if (pw && !EXMODE) { const [i, k] = pw.dataset.pwhen.split(":"); people()[+i].when = k; renderPeople(); save(); return; }
   const xs = e.target.closest("[data-exswitch]"); if (xs) { toggleExample(); return; }
   const go = e.target.closest("[data-go]"); if (go) { show(go.dataset.go); toTop(); return; }
@@ -1929,6 +2024,7 @@ document.addEventListener("keydown", e => { if (e.target.id === "mine-in" && e.k
   const q = e.target.closest && e.target.closest("[data-mq]"); if (q && e.target === q && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); if (!EXMODE) placeMedium(q.dataset.mq); } });
 document.addEventListener("toggle", e => { if (e.target.matches && e.target.matches('details[data-ideas="MX"]')) mmxOpen = e.target.open; }, true);
 document.addEventListener("change", e => {
+  if (e.target.id === "loadfile") { const f = e.target.files && e.target.files[0]; if (f) loadFile(f); e.target.value = ""; return; }
   const d = e.target.dataset; if (EXMODE) return;
   if (d.pring !== undefined) { people()[+d.pring].ring = +e.target.value; renderMap(); save(); }
   if (d.safe !== undefined) { S.plan["safe" + d.safe] = e.target.checked ? "1" : ""; refreshChain(); save(); }
@@ -1944,6 +2040,7 @@ document.addEventListener("input", e => {
   else if (d.learn) S.learn[d.learn] = t.value;
   else if (d.plan) { S.plan[d.plan] = t.value; refreshPlanCards(); refreshChain(); renderProjline(); }
   else if (d.p !== undefined) S.pr[+d.p] = t.value;
+  else if (d.lb) { S.lb = S.lb || {}; S.lb[d.lb] = t.value; }
   else if (d.chal) { S.chal = S.chal || {}; S.chal[d.chal] = t.value; }
   else if (d.when || d.dur) { const f = d.when ? "when" : "dur", k = d.when || d.dur; S[f] = S[f] || {}; S[f][k] = t.value; }
   else if (d.trynote !== undefined) { const x = (S.tries || [])[+d.trynote]; if (x) x.noticed = t.value; }
@@ -1980,7 +2077,8 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeWheel)
 
 load();
 if (!S.cur) S.cur = [rnd(RV.length), rnd(RW.length), rnd(RO.length)];
-show(S.view || "discover");
+{ const h = decodeURIComponent(location.hash.slice(1)); show(h && document.getElementById(h) && document.getElementById(h).classList.contains("step") && h !== "locked" ? h : (S.view || "discover")); }
+window.addEventListener("hashchange", () => { const h = decodeURIComponent(location.hash.slice(1)); if (h && h !== S.view && document.getElementById(h) && document.getElementById(h).classList.contains("step") && h !== "locked") { show(h); toTop(); } });
 sizeWheel();
 </script>
 
