@@ -21,5 +21,4 @@ doc = f'''<!doctype html>
 open('site/index.html', 'w', encoding='utf-8').write(doc)
 open('site/CNAME', 'w').write('toolkit.ramos-saavedra.com\n')
 open('site/.nojekyll', 'w').write('')
-open('site/robots.txt', 'w').write('User-agent: *\nDisallow: /\n')
 print(len(doc))
