@@ -709,6 +709,51 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
 .roundbox { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 16px 0; }
 .roundbox > div { flex: 1 1 280px; display: grid; gap: 4px; }
 #roundmsg:empty { display: none; }
+
+/* ---------- round 21: STRIP, and one width and two frames for everything ---------- */
+/* 1. the "1 of 4" labels go: the page links already say where you are */
+.pageof { display: none !important; }
+.ways.hasnext > :not(#exswitch) { display: none; }
+/* one reading measure for running text; every box spans the column */
+.intro, .anote, .tip, .popnote, details.ideas .inote, .versions, .vrow .small { max-width: 62ch; }
+.nextmove, .trybox, .audcheck, .method details.ideas[data-ideas="MX"], #pairs-start, .chainread, .fromreact, .angrylist, .coll, .mcoll { max-width: none; }
+/* frame one, plain: a 1.5px ink line, no fill, no shadow */
+.nextmove, .audcheck, .fromreact, .angrylist, .chainread, .mc, .sharpen { border: 1.5px solid var(--ink); background: transparent; color: var(--ink); box-shadow: none; padding: 16px 18px; }
+.nextmove { border-left-width: 1.5px; }
+.angrylist h3, .angrylist .muted { color: inherit; opacity: 1; }
+body.exmode .angrylist { background: transparent; border-color: var(--ink); }
+.mc { border-style: solid; }
+/* frame two, the one thing to do on the page: the same line, with the shadow; the shadow ends on the column edge */
+.spinner, .trybox { border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); width: calc(100% - 6px); max-width: none; }
+.card-pos { max-width: calc(100% - 28px) !important; width: 100%; }
+/* the author's voice is text with an orange bar, never a box */
+.popnote { border: 0; border-left: 4px solid var(--you); box-shadow: none; background: transparent; padding: 2px 0 2px 16px; margin-top: -14px; }
+.popnote::before { content: none; }
+/* quotes of your own words: a bar, no fill */
+.mtask .pq { background: transparent; }
+/* sharpen fold */
+.sharpen { display: grid; gap: 22px; }
+.sharpen > summary { cursor: pointer; list-style: none; display: grid; gap: 4px; }
+.sharpen > summary::-webkit-details-marker { display: none; }
+.sharpen > summary .sh { font: 400 1.55rem/1.1 var(--bitmap); }
+.sharpen > summary .sh::before { content: "+ "; font-family: var(--mono); font-size: 1rem; vertical-align: 0.15em; }
+.sharpen[open] > summary .sh::before { content: "− "; }
+.sharpen > summary .shs { font: 400 0.95rem var(--serif); color: var(--muted); }
+/* example banner on one line */
+.exbanner { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; padding: 7px 12px !important; font: 500 0.78rem/1.4 var(--mono) !important; }
+.exbanner .linkbtn { color: inherit; }
+/* project line on one row, save status at its end */
+.projline { flex-wrap: nowrap !important; overflow-x: auto; scrollbar-width: thin; align-items: center; }
+.projline button, .projline .lab { flex: none; }
+.projline .savein { flex: none; margin-left: auto; padding-left: 12px; font: 500 0.72rem var(--mono); letter-spacing: 0.04em; color: var(--muted); white-space: nowrap; }
+.savestate:has(#savemsg:empty) { display: none; }
+
+/* one reading measure in px, so text of every size ends on the same line; everything else spans the column */
+.intro, .anote, .tip, .popnote, details.ideas .inote, .sentence, .verdict, .pamp, .vrow .small { max-width: 545px !important; }
+.versions, section.step > .lead, .vlist { max-width: none !important; }
+
+.projline .savein { margin-left: 0; padding: 0 10px 0 0; order: 0; }
+.sharpen .fromreact { border: 0; border-left: 3px solid var(--ink); padding: 4px 0 4px 14px; }
 </style>
 <style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -736,11 +781,11 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
     <button type="button" data-go="finale"><span class="num">7</span>Principles</button>
   </nav>
   <div class="row2"><nav class="subnav" id="subnav" aria-label="Pages in this step" hidden></nav>
-    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=20" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
+    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=21" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
       <div class="morepop" id="morepop" hidden><button type="button" data-savefile="1">Save to a file</button><button type="button" data-loadfile="1">Load from a file</button><small>Carry your project to another device: save it here, then load it there. Loading replaces what's in this browser now.</small><input type="file" id="loadfile" accept=".json,application/json" hidden><hr><button type="button" id="reset">Start a new project</button><small id="reset-note">Clears everything you've written, in this browser only. Print your summary first if you want to keep it.</small></div></span></span></div>
   <div class="projline" id="projline" hidden></div>
-  <div class="savestate" id="savestate"><span>Saved in this browser</span><span class="sep">·</span><button type="button" class="linkbtn" data-savefile="1">Back up to a file</button><span class="muted" id="savemsg"></span></div>
-  <div class="exbanner" id="exbanner" hidden><span><b>Worked example:</b> hand-painted shop signs. Look through every step; nothing here can be changed or saved.</span><button type="button" class="btn quiet" data-exswitch="1">Back to my own project</button></div>
+  <div class="savestate" id="savestate"><span class="muted" id="savemsg"></span></div>
+  <div class="exbanner" id="exbanner" hidden><span><b>Worked example</b> · hand-painted shop signs · read only</span><button type="button" class="linkbtn" data-exswitch="1">Back to my own project</button></div>
   </div>
 
   <section class="step" id="discover">
@@ -866,10 +911,12 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
     <div id="forwardnote"></div>
     <p class="anote" id="roundmsg" style="min-height:0"></p>
     <div id="tries"></div>
-    <h3 class="sharpen-h">Sharpen one into a question <button type="button" class="pbtn" data-pop="sharpen" aria-expanded="false" aria-label="A note from the author">?</button></h3>
+    <details class="sharpen" id="sharpen"><summary><span class="sh">Sharpen one into a question</span><span class="shs">Only when a try keeps pulling at you</span></summary>
+    <p class="small" style="margin:0">Why sharpen? <button type="button" class="pbtn" data-pop="sharpen" aria-expanded="false" aria-label="A note from the author">?</button></p>
     <div class="popnote" id="pop-sharpen" hidden>Only sharpen a try that keeps pulling at you, and only when you want to. Write what you expect before you start: if you write it afterwards, the result can't surprise you.</div>
     <div id="pulled"></div>
     <div class="plans" id="exp-list"></div>
+    </details>
     <div id="round-exp"></div>
     <div class="tip"><b>Not a lab.</b> You don't need statistics. You need to know what you changed, what you kept the same, and what actually happened, written down while it's fresh.</div>
     <div class="nextrow"><button class="btn" type="button" data-go="findings">Back</button><button class="btn solid" type="button" data-go="plan1">Next: your plan</button></div>
@@ -963,7 +1010,7 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
   </section>
 
   <footer class="muted small" style="margin-top:40px;border-top:1px solid var(--dot);padding-top:14px">
-    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 20, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=20&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
+    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 21, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=21&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
   </footer>
   <div id="printroot"></div>
   <div id="measure" aria-hidden="true"></div>
@@ -1114,7 +1161,7 @@ function renderProjline() {
     ["Ends", end ? new Date(end + "T12:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", "plan4"]
   ].filter(x => x[1]);
   const el = $("#projline"); el.hidden = !items.length;
-  el.innerHTML = items.length ? `<span class="lab">Your project</span>` + items.map(([l, v, go]) => `<button type="button" data-go="${go}" title="${esc(l + ": " + v)}"><b>${l}</b><span>${esc(v)}</span></button>`).join("") : "";
+  el.innerHTML = items.length ? `<span class="lab">Your project</span><span class="savein">saved in this browser · <button type="button" class="linkbtn" data-savefile="1">back up</button></span>` + items.map(([l, v, go]) => `<button type="button" data-go="${go}" title="${esc(l + ": " + v)}"><b>${l}</b><span>${esc(v)}</span></button>`).join("") : "";
 }
 
 /* ---------- principles, the finale ---------- */
@@ -1181,6 +1228,7 @@ const EXGAP = { same: "what stays the same", change: "one thing", record: "how y
 function expFill(p) { return p.tpl.replace(/\{(\w+)\}/g, (m, k) => X(k) ? `<mark>${esc(X(k))}</mark>` : `<mark class="gap">${esc(EXGAP[k] || k)}</mark>`); }
 function xinp(id, ph, ta) { return ta ? `<textarea class="box" id="ex-${id}" data-exp="${id}" rows="2" placeholder="${esc(ph || "")}">${esc(S.exp[id] || "")}</textarea>` : `<input class="line" id="ex-${id}" data-exp="${id}" value="${esc(S.exp[id] || "")}" placeholder="${esc(ph || "")}">`; }
 function renderExp() {
+  { const sd = $("#sharpen"); if (sd && X("q")) sd.open = true; }
   $("#exp-list").innerHTML = EXPB.map(p => {
     let fl = p.fields ? p.fields.map(([id, l, ph]) => `<div class="field"><label for="ex-${id}">${l}</label>${xinp(id, ph, p.after)}</div>`).join("") : "";
     if (p.rungs) fl = `<div class="rungs">${RUNGS.map((r, i) => `<button type="button" class="chip rung" data-rung="${i}" aria-pressed="${S.exp.rung === i}"><b>${i + 1}</b> ${esc(r)}</button>`).join("")}</div>`;
@@ -1660,7 +1708,6 @@ function resultHTML(m, a) {
         ${opLink(opt[1])}
         <span class="mtask">${fill(opt[2])}</span>
         ${(() => { const miss = [...new Set((opt[2].match(/\{(\w+)\}/g) || []).map(x => x.slice(1, -1)))].filter(k => !val(k)); return miss.length ? `<span class="anote missing">Your brief doesn't have ${miss.map(k => esc(GAP[k] || k)).join(" or ")} yet. <button type="button" class="linkbtn" data-go="brief">Add it to your brief</button>, or try this with what you have.</span>` : ""; })()}
-        <span class="orig"><b>The move in general:</b> ${esc(o.task)}</span>
         ${seenIn(o)}</div>
         <div class="fills">
           <div class="field"><label for="d-${m.k}">What I want to find out</label><textarea class="box" id="d-${m.k}" data-disc="${m.k}" rows="2">${esc(S.disc[m.k] || "")}</textarea></div>
@@ -1964,6 +2011,7 @@ function nextMove() {
 function renderNextMove() {
   const el = $("#nextmove"); if (!el) return;
   const m = nextMove(); el.hidden = !m;
+  { const w = document.querySelector(".mast .ways"); if (w) w.classList.toggle("hasnext", !!m); }
   el.innerHTML = m ? `<span class="lab">Your next move</span><span class="nmtext">${m.text}</span><div class="nmrow">${m.go === "round" ? `<button type="button" class="btn solid" data-round="1">${m.label}</button>` : `<button type="button" class="btn solid" data-go="${m.go}">${m.label}</button>`}${m.n ? `<span class="small">${opLink(m.n, "oplink-lab")}</span>` : ""}</div>` : "";
 }
 /* go round again (2a): keep the brief as a version, put short findings on the wheel, open a new quick try */
@@ -1981,7 +2029,7 @@ const ROUND = where => `<div class="roundbox"><div><span class="lab">Go round ag
 
 /* ---------- save to a file, load from a file ---------- */
 function saveFile() {
-  const data = JSON.stringify({ app: "project-planning-toolkit", version: 20, saved: new Date().toISOString(), state: S });
+  const data = JSON.stringify({ app: "project-planning-toolkit", version: 21, saved: new Date().toISOString(), state: S });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([data], { type: "application/json" }));
   a.download = "my-project-" + new Date().toISOString().slice(0, 10) + ".json";
@@ -2011,7 +2059,7 @@ function show(view) {
   if (S.view !== view) { const rm = document.getElementById("roundmsg"); if (rm) rm.textContent = ""; }
   S.view = view; if (view !== "methods") PRINTCARDS = false;
   try { if (location.hash !== "#" + view) history.replaceState(null, "", "#" + view); } catch (e) {}
-  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=20&page=" + encodeURIComponent(view); }
+  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=21&page=" + encodeURIComponent(view); }
   const L = lockOf(view), shown = L ? "locked" : view;
   if (L) renderLocked(view, L);
   document.querySelectorAll("section.step").forEach(s => s.hidden = s.id !== shown);
