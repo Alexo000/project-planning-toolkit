@@ -790,6 +790,36 @@ body.exmode .pbar span { background: var(--ex); }
 @media (max-width: 600px) { .ci4 { grid-template-columns: 1fr; } }
 
 .netgrid .ringmap { position: static; margin-inline: auto; width: 100%; }
+
+/* ---------- round 23: audience slots, the finish and the reveal ---------- */
+.audslots .slot.add { border: 1.5px dashed var(--ink); background: var(--paper); color: var(--ink); cursor: pointer; font: 500 0.88rem var(--sans); }
+.audslots .slot.add:hover { border-style: solid; }
+body.exmode .audslots .slot.add { cursor: default; }
+.finish { display: grid; gap: 14px; border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); width: calc(100% - 6px); padding: 20px 22px; }
+.finish .q { font: 400 1.7rem/1.1 var(--bitmap); }
+.finish .lklist { margin: 0; }
+.finish .lklist .linkbtn { color: var(--you); }
+.finrow { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.finrow .lab { font: 500 0.76rem var(--mono); letter-spacing: 0.07em; text-transform: uppercase; }
+.btn[disabled] { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
+.reveal { display: grid; gap: 18px; justify-items: start; padding-top: 10px; }
+.reveal .castle svg { width: 96px; height: 96px; image-rendering: pixelated; }
+.reveal .lab { font: 500 0.8rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--you); }
+.reveal h2 { margin: 0; font-size: clamp(2.6rem, 8vw, 4.2rem); }
+.rv-brief { margin: 0; font: 400 1.25rem/1.45 var(--serif); max-width: 545px; }
+.rv-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; width: 100%; border-top: 2px solid var(--ink); border-left: 1.5px solid var(--ink); }
+.rv-stat { display: grid; gap: 4px; padding: 14px 14px 16px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
+.rv-stat b { font: 400 2.6rem/1 var(--bitmap); }
+.rv-stat span { font: 400 0.92rem/1.3 var(--serif); }
+@media (max-width: 640px) { .rv-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: no-preference) {
+  .reveal .castle { animation: castle 0.9s steps(6) both; }
+  .rv-stat, .rv-next { animation: pop 0.3s steps(3) both; }
+  @keyframes castle { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes pop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}
+
+.finish:has(.finrow:only-child) { box-shadow: none; width: 100%; border-width: 1.5px; }
 </style>
 
 <div class="wrap">
@@ -815,7 +845,7 @@ body.exmode .pbar span { background: var(--ex); }
     <button type="button" data-go="finale"><span class="num">8</span>Principles</button>
   </nav>
   <div class="row2"><nav class="subnav" id="subnav" aria-label="Pages in this step" hidden></nav>
-    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><button type="button" class="toollink" id="extool" data-exswitch="1">Example</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=22" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
+    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><button type="button" class="toollink" id="extool" data-exswitch="1">Example</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=23" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
       <div class="morepop" id="morepop" hidden><button type="button" data-savefile="1">Save to a file</button><button type="button" data-loadfile="1">Load from a file</button><small>Carry your project to another device: save it here, then load it there. Loading replaces what's in this browser now.</small><input type="file" id="loadfile" accept=".json,application/json" hidden><hr><button type="button" id="reset">Start a new project</button><small id="reset-note">Clears everything you've written, in this browser only. Print your summary first if you want to keep it.</small></div></span></span></div>
   <div class="projline" id="projline" hidden></div>
   <div class="savestate" id="savestate"><span class="muted" id="savemsg"></span></div>
@@ -1004,7 +1034,12 @@ body.exmode .pbar span { background: var(--ex); }
     <div class="popnote" id="pop-checkin" hidden>A plan only helps if you look at it again. The check-in is the moment you do: once a week, ten minutes, honestly.</div>
     <p class="intro">Come back here at the end of each week. See how far you've got, answer this week's question, and write four short notes. Then carry on making. Look back once the project is done.</p>
     <div id="ci"></div>
-    <div class="nextrow"><button class="btn" type="button" data-go="plan4">Back</button><button class="btn solid" type="button" data-go="end">Next: looking back</button></div>
+    <div class="finish" id="finish"></div>
+    <div class="nextrow"><button class="btn" type="button" data-go="plan4">Back</button><button class="btn solid" type="button" data-go="end" id="ci-next">Next: looking back</button></div>
+  </section>
+
+  <section class="step" id="done" hidden>
+    <div class="reveal" id="reveal"></div>
   </section>
 
   <section class="step" id="end" hidden>
@@ -1055,7 +1090,7 @@ body.exmode .pbar span { background: var(--ex); }
   </section>
 
   <footer class="muted small" style="margin-top:40px;border-top:1px solid var(--dot);padding-top:14px">
-    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 22, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=22&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
+    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 23, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=23&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
   </footer>
   <div id="printroot"></div>
   <div id="measure" aria-hidden="true"></div>
@@ -1168,7 +1203,7 @@ const blank = () => ({ spins: [], cur: null, versions: [], mine: [], ring: "ever
 let S = blank();
 const KEY = "ppt-proto-3";
 function load() { try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(blank(), JSON.parse(raw)); } catch (e) {} }
-function save() { if (EXMODE) return; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function save() { if (EXMODE) return; if (!S.started) S.started = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const $ = s => document.querySelector(s);
 const val = k => (S.brief[k] || "").trim();
@@ -1333,8 +1368,8 @@ function renderAudCheck() {
   const el = $("#audcheck"); if (!el) return;
   const au = people().filter(p => (p.name || "").trim() && p.aud), rc = au.filter(p => p.reached).length;
   el.innerHTML = `<span class="lab">Four people from your audience you can reach this week</span>
-    <div class="audslots">${[0, 1, 2, 3].map(i => { const p = au[i]; return `<span class="slot ${p ? "on" : ""} ${p && p.reached ? "done" : ""}">${p ? esc(p.name.trim()) + (p.reached ? " ✓" : "") : "?"}</span>`; }).join("")}</div>
-    <p class="muted small" style="margin:0">${au.length} of 4 from your audience · ${rc} reached. Tag people below as “From my audience”, and tick “Reached” once you've talked to them. Your audience is who you test with, so reach them early.</p>`;
+    <div class="audslots">${[0, 1, 2, 3].map(i => { const p = au[i]; return `${p ? `<span class="slot on ${p.reached ? "done" : ""}">${esc(p.name.trim()) + (p.reached ? " ✓" : "")}</span>` : `<button type="button" class="slot add" data-audadd="1">+ Add someone</button>`}`; }).join("")}</div>
+    <p class="muted small" style="margin:0">${au.length} of 4 from your audience · ${rc} reached. Add them here, or tag anyone below as “From my audience”. Tick “Reached” once you've talked to them: your audience is who you test with, so reach them early.</p>`;
 }
 function renderMap() { renderAudCheck();
   $("#ringmap").innerHTML = ringSVG(people());
@@ -1369,9 +1404,9 @@ const LOCKS = {
   plan: { name: "Plan", go: "exp", goLabel: "Go to your experiment",
     why: "Plan the making once you've tried something out, so the plan opens once you've kept at least one quick try.",
     checks: () => [["Keep at least one quick try, or write an experiment question", (S.tries || []).length > 0 || !!X("q")]] },
-  end: { name: "Looking back", go: "plan1", goLabel: "Go to your plan",
-    why: "Looking back needs a plan to look back from, so it opens once you've said what success looks like.",
-    checks: () => [["Write what success looks like", !!P("succ")]] },
+  end: { name: "Looking back", go: "checkin", goLabel: "Go to Check in",
+    why: "Looking back is the end of the quest. It opens once your project is done and you've said so on the Check in page.",
+    checks: () => [["Say your project is done, on the Check in page", !!S.done]] },
   finale: { name: "Principles", go: "exp", goLabel: "Go to your experiment",
     why: "Principles come from what you've made and seen, so they open once you've written down something you noticed.",
     checks: () => [["Write what you noticed in a try or in your experiment, or what you found with a research method", !!X("happened") || (S.tries || []).some(x => (x.noticed || "").trim()) || Object.values(S.learn || {}).some(v => (v || "").trim())]] }
@@ -1441,6 +1476,7 @@ const EXAMPLE = {
     tasks: [["Book the riso induction", 0], ["Print one test sheet in two colours", 0], ["Photograph six signs on the high street", 0], ["Ask Mrs K about her sign", 1], ["Draft the six poster layouts", 1], ["Show test prints to Jo", 1], ["Buy paper", 2], ["Tidy the reference folder", 2], ["Redesign a logo for the project", 3]],
     log: [["Mon 19", "letters 12 pt, one ink", "unreadable at 10 m", 1], ["Mon 19", "letters 36 pt, one ink", "reads as printed", 1], ["Tue 20", "letters 36 pt, two inks", "reads as hand-made", 1], ["Wed 21", "letters 72 pt, two inks", "hand-made, but loud", 1], ["Thu 22", "letters 12 pt, two inks", "ink spread, reads best", 1], ["Fri 23", "letters 24 pt, two inks", "the one we keep", 1]]
   },
+  started: Date.parse("2026-10-19T09:00:00"), done: Date.parse("2026-11-06T17:00:00"),
   view: "discover"
 };
 function toggleExample() {
@@ -2052,6 +2088,7 @@ function nextMove() {
   if (un) return mv(`Reach ${esc(un.name.trim())}, from your audience, and tick them when you have.`, "plan3", 38);
   if (!P("end")) return mv("Set the day your project ends, while it still works.", "plan4", 58);
   if (![1, 2, 3].some(w => (weeksAll()[w] || []).some(v => (v || "").trim()))) return mv("Do your first check-in: see how far you've got and write four short notes about the week.", "checkin", 57);
+  if (!S.done) { const q = quest(), miss = q.find(x => !x[1]); return miss ? mv(`To finish the quest you still need ${esc(miss[0].charAt(0).toLowerCase() + miss[0].slice(1))}.`, miss[2], null) : mv("Is your project done? Say so on the Check in page, and the end opens.", "checkin", 57); }
   if (!((S.lb || {}).made || "").trim()) return mv("Say what you made, plainly, as you'd tell a friend.", "end", null);
   if (!S.pr.some(v => (v || "").trim())) return mv("Write your first principle. Its small task finds it in what you already did.", "finale", 16);
   return mv("Go round again: put what you found on the wheel and try something new with it.", "round", 87, "Go round again");
@@ -2100,7 +2137,7 @@ function renderCheckin() {
   const col = collected(), found = col.filter(m => (S.learn[m.k] || "").trim()).length;
   const tr = S.tries || [], noticed = tr.filter(x => (x.noticed || "").trim()).length;
   const au = people().filter(p => (p.name || "").trim() && p.aud), reached = au.filter(p => p.reached).length;
-  let left = ""; if (P("end")) { const d = Math.ceil((new Date(P("end") + "T12:00") - new Date()) / 86400000); left = d > 1 ? `${d} days left` : d === 1 ? "one day left" : d === 0 ? "ends today" : "ended"; }
+  let left = ""; if (S.done) left = "done"; else if (P("end")) { const d = Math.ceil((new Date(P("end") + "T12:00") - new Date()) / 86400000); left = d > 1 ? `${d} days left` : d === 1 ? "one day left" : d === 0 ? "ends today" : "ended"; }
   const bar = (n, of) => `<span class="pbar"><span style="width:${of ? Math.round(100 * n / of) : 0}%"></span></span>`;
   el.innerHTML = `<div class="chips tgtabs">${[1, 2, 3].map(w => `<button type="button" class="chip" data-ciweek="${w}" aria-pressed="${w === ciWeek}">Week ${w}${(W[w] || []).some(v => (v || "").trim()) ? " ✓" : ""}</button>`).join("")}</div>
     <div class="namer"><span class="q">${FOCUSQ[ciWeek - 1]}</span><p class="muted small" style="margin:0">This week's question. Answer it to yourself before you write the notes below.</p></div>
@@ -2114,9 +2151,56 @@ function renderCheckin() {
     <p class="anote">Stuck this week? Open the <a href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck list</a>: tick what's wrong and each tick hands you a move. Then go round again if you need to.</p>`;
 }
 
+/* ---------- the quest: what has to be done before the end opens ---------- */
+function quest() {
+  const W = weeksAll();
+  return [
+    ["A brief: your topic and at least three more parts", !!val("topic") && BRIEFKEYS.filter(k => k !== "topic" && val(k)).length >= 3, "brief"],
+    ["A research method done, with what you found", collected().some(m => (S.learn[m.k] || "").trim()), "findings"],
+    ["A quick try done, with what you noticed", (S.tries || []).some(x => (x.noticed || "").trim()), "exp"],
+    ["What success looks like", !!P("succ"), "plan1"],
+    ["At least one check-in", [1, 2, 3].some(w => (W[w] || []).some(v => (v || "").trim())), "checkin"]
+  ];
+}
+function renderFinish() {
+  const el = $("#finish"); if (!el) return;
+  const q = quest(), ok = q.every(x => x[1]);
+  const nx = $("#ci-next"); if (nx) { nx.textContent = S.done ? "Next: looking back" : "See your summary so far"; nx.dataset.go = S.done ? "end" : "sheet"; }
+  if (S.done) { el.innerHTML = `<div class="finrow"><span class="lab">Done ${esc(new Date(S.done).toLocaleDateString("en-GB", { day: "numeric", month: "long" }))}</span><button type="button" class="btn" data-go="done">See the end again</button><button type="button" class="linkbtn" data-unfinish="1">Not done after all? Reopen it</button></div>`; return; }
+  el.innerHTML = `<span class="q">Is your project done?</span>
+    <p class="intro" style="margin:0">Looking back opens at the end of the quest, once you've made the thing and tested it. ${ok ? "You've done everything it needs." : "Before then, it needs:"}</p>
+    <ul class="lklist">${q.map(([txt, d, go]) => `<li class="${d ? "ok" : ""}"><span class="tick">${d ? "✓" : "○"}</span>${d ? esc(txt) : `<button type="button" class="linkbtn" data-go="${go}">${esc(txt)}</button>`}</li>`).join("")}</ul>
+    <div class="finrow"><button type="button" class="btn solid" data-finish="1"${ok ? "" : " disabled"}>Yes, it's done</button><button type="button" class="btn" data-go="sheet">Not yet: see how far I've got</button></div>`;
+}
+const PRINTS = n => String(n);
+function renderReveal() {
+  const el = $("#reveal"); if (!el) return;
+  if (!S.done) { el.innerHTML = `<p class="waiting">Not yet. Finish your project and say so on the Check in page.</p>`; return; }
+  const start = S.started || ((S.versions || [])[0] || {}).at || S.done;
+  const days = Math.max(1, Math.round((S.done - start) / 86400000));
+  const tr = S.tries || [], W = weeksAll();
+  const stats = [
+    [days, days === 1 ? "day" : "days"],
+    [S.spins.length, "spins kept"],
+    [(S.versions || []).length || 1, "versions of your brief"],
+    [collected().filter(m => (S.learn[m.k] || "").trim()).length, "research methods done"],
+    [tr.filter(x => (x.noticed || "").trim()).length, "quick tries"],
+    [people().filter(p => (p.name || "").trim() && p.reached).length, "people from your audience reached"],
+    [[1, 2, 3].filter(w => (W[w] || []).some(v => (v || "").trim())).length, "check-ins"],
+    [new Set([...beforeMoves(), ...afterMoves()]).size, "different moves used"]
+  ];
+  el.innerHTML = `<div class="castle" aria-hidden="true">${PICTO.finale ? `<svg viewBox="0 0 16 16" fill="currentColor">${PICTO.finale}</svg>` : ""}</div>
+    <span class="lab">The end of the quest</span>
+    <h2>Project done</h2>
+    <p class="rv-brief">${esc(val("topic") || "Your project")}${val("outcome") ? `: ${esc(val("outcome"))}` : ""}${val("audience") ? `, for ${esc(val("audience"))}` : ""}.</p>
+    <div class="rv-stats">${stats.map(([n, l], i) => `<div class="rv-stat" style="animation-delay:${0.15 + i * 0.18}s"><b>${n}</b><span>${l}</span></div>`).join("")}</div>
+    <p class="intro rv-next" style="animation-delay:${0.15 + stats.length * 0.18}s">Now look back: what you made, whether it kept its promise, and how your way of working moved. Then write the three principles you'll carry into the next one.</p>
+    <div class="rv-next" style="animation-delay:${0.3 + stats.length * 0.18}s"><button type="button" class="btn solid" data-go="end">Look back</button></div>`;
+}
+
 /* ---------- save to a file, load from a file ---------- */
 function saveFile() {
-  const data = JSON.stringify({ app: "project-planning-toolkit", version: 22, saved: new Date().toISOString(), state: S });
+  const data = JSON.stringify({ app: "project-planning-toolkit", version: 23, saved: new Date().toISOString(), state: S });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([data], { type: "application/json" }));
   a.download = "my-project-" + new Date().toISOString().slice(0, 10) + ".json";
@@ -2138,7 +2222,7 @@ function loadFile(file) {
 }
 
 /* ---------- wiring ---------- */
-function renderAll() { renderNextMove(); renderTimeGrid(); renderCheckin(); ["findings", "exp", "end"].forEach(k => { const el = document.getElementById("round-" + k); if (el) el.innerHTML = ROUND(k); });
+function renderAll() { renderFinish(); renderReveal(); renderNextMove(); renderTimeGrid(); renderCheckin(); ["findings", "exp", "end"].forEach(k => { const el = document.getElementById("round-" + k); if (el) el.innerHTML = ROUND(k); });
   { const fn = $("#forwardnote"); if (fn) fn.innerHTML = S.forward ? `<p class="anote">You came in with a project already going. Spin a cheap try for it and do it today. Stuck on something specific? Open the <a href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck list</a>: tick what's wrong and each tick hands you a move.</p>` : ""; }
   renderBack(); renderReact(); renderChal(); renderPairs(); renderColl(); renderFindings(); renderTries(); renderVersions(); renderMine(); renderProjline(); renderPrinciples(); renderExp(); renderPeople(); renderReels(); renderKept(); renderRecap(); renderNamers(); renderParts(); $("#b-sentence").innerHTML = sentenceHTML(); renderMethods(); renderPlan(); renderEnd(); renderSheet(); }
 function show(view) {
@@ -2146,7 +2230,7 @@ function show(view) {
   if (S.view !== view) { const rm = document.getElementById("roundmsg"); if (rm) rm.textContent = ""; }
   S.view = view; if (view !== "methods") PRINTCARDS = false;
   try { if (location.hash !== "#" + view) history.replaceState(null, "", "#" + view); } catch (e) {}
-  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=22&page=" + encodeURIComponent(view); }
+  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=23&page=" + encodeURIComponent(view); }
   const L = lockOf(view), shown = L ? "locked" : view;
   if (L) renderLocked(view, L);
   document.querySelectorAll("section.step").forEach(s => s.hidden = s.id !== shown);
@@ -2170,6 +2254,9 @@ document.addEventListener("click", e => {
   const gw = e.target.closest("[data-gweek]"); if (gw) { gridWeek = +gw.dataset.gweek; renderTimeGrid(); return; }
   const gc = e.target.closest("[data-gcell]"); if (gc && !EXMODE) { const [si, di] = gc.dataset.gcell.split(":").map(Number); const G = JSON.parse(JSON.stringify(gridAll())); const rows = gridRows(gridWeek); const cur = rows[si][di], nx = cur === "." ? "✓" : cur === "✓" ? "✗" : "."; rows[si] = rows[si].slice(0, di) + nx + rows[si].slice(di + 1); G[gridWeek] = rows; S.grid = G; renderTimeGrid(); save(); return; }
   const cw = e.target.closest("[data-ciweek]"); if (cw) { ciWeek = +cw.dataset.ciweek; renderCheckin(); return; }
+  if (e.target.closest("[data-audadd]") && !EXMODE) { people().push({ name: "", ring: 1, help: [], when: "now", aud: true }); renderPeople(); save(); const el = document.getElementById("pp-" + (S.people.length - 1)); if (el) { el.scrollIntoView({ block: "center" }); el.focus(); } return; }
+  const fin = e.target.closest("[data-finish]"); if (fin && !EXMODE) { if (fin.disabled) return; S.done = Date.now(); save(); show("done"); toTop(); return; }
+  if (e.target.closest("[data-unfinish]") && !EXMODE) { S.done = null; save(); show("checkin"); return; }
   if (e.target.closest("[data-forward]")) { if (!EXMODE) { S.forward = true; save(); } show("exp"); toTop(); return; }
   if (e.target.closest("[data-round]")) { if (!EXMODE) goRound(); return; }
   if (e.target.closest("[data-savefile]")) { if (EXMODE) toggleExample(); saveFile(); return; }
