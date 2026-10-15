@@ -827,6 +827,13 @@ body.exmode .audslots .slot.add { cursor: default; }
 }
 
 .finish:has(.finrow:only-child) { box-shadow: none; width: 100%; border-width: 1.5px; }
+
+/* ---------- round 24: dated check-ins, welcome back ---------- */
+.tgtabs { align-items: center; }
+.welcome { display: grid; gap: 8px; border-bottom: 1px dotted var(--dot); padding-bottom: 12px; margin-bottom: 4px; }
+.welcome p { margin: 0; font: 400 1.02rem/1.5 var(--serif); }
+.welcome .lab { font: 500 0.76rem var(--mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--you); }
+.rv-span { margin: 0; font: 400 1rem/1.4 var(--serif); color: var(--muted); }
 </style>
 <style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -855,7 +862,7 @@ body.exmode .audslots .slot.add { cursor: default; }
     <button type="button" data-go="finale"><span class="num">8</span>Principles</button>
   </nav>
   <div class="row2"><nav class="subnav" id="subnav" aria-label="Pages in this step" hidden></nav>
-    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><button type="button" class="toollink" id="extool" data-exswitch="1">Example</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=23" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
+    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><button type="button" class="toollink" id="extool" data-exswitch="1">Example</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=24" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
       <div class="morepop" id="morepop" hidden><button type="button" data-savefile="1">Save to a file</button><button type="button" data-loadfile="1">Load from a file</button><small>Carry your project to another device: save it here, then load it there. Loading replaces what's in this browser now.</small><input type="file" id="loadfile" accept=".json,application/json" hidden><hr><button type="button" id="reset">Start a new project</button><small id="reset-note">Clears everything you've written, in this browser only. Print your summary first if you want to keep it.</small></div></span></span></div>
   <div class="projline" id="projline" hidden></div>
   <div class="savestate" id="savestate"><span class="muted" id="savemsg"></span></div>
@@ -1032,8 +1039,8 @@ body.exmode .audslots .slot.add { cursor: default; }
     <h2>Money and time</h2>
     <p class="intro">What you can spend, and the day it ends. The parts you mark by hand every week (your time grid, your budget lines, your task list) are on the third page of your summary, ready to print.</p>
     <div class="plans" id="plan-list-4"></div>
-    <h3>Your weeks</h3>
-    <p class="intro" style="margin-top:-20px">Mark when you can work without interruption, and when you can't. Most people find fewer free blocks than they expect; better to know now.</p>
+    <h3>A usual week</h3>
+    <p class="intro" style="margin-top:-20px">Mark when you can usually work without interruption, and when you can't. Most people find fewer free blocks than they expect; better to know now.</p>
     <div id="tgridwrap"></div>
     <div class="tip"><b>Time management.</b> Most people underestimate time by half or more. If you think something takes two hours, plan for three.</div>
     <div class="nextrow"><button class="btn" type="button" data-go="plan3">Back</button><button class="btn solid" type="button" data-go="checkin">Next: check in</button></div>
@@ -1042,7 +1049,7 @@ body.exmode .audslots .slot.add { cursor: default; }
   <section class="step" id="checkin" hidden>
     <h2>Check in <button type="button" class="pbtn" data-pop="checkin" aria-expanded="false" aria-label="A note from the author">?</button></h2>
     <div class="popnote" id="pop-checkin" hidden>A plan only helps if you look at it again. The check-in is the moment you do: once a week, ten minutes, honestly.</div>
-    <p class="intro">Come back here at the end of each week. See how far you've got, answer this week's question, and write four short notes. Then carry on making. Look back once the project is done.</p>
+    <p class="intro">Come back here whenever you sit down with the project. Once a week suits most people, and gaps are fine. See how far you've got, answer the question for where your project stands, and write four short notes. Then carry on making. Look back once the project is done.</p>
     <div id="ci"></div>
     <div class="finish" id="finish"></div>
     <div class="nextrow"><button class="btn" type="button" data-go="plan4">Back</button><button class="btn solid" type="button" data-go="end" id="ci-next">Next: looking back</button></div>
@@ -1100,7 +1107,7 @@ body.exmode .audslots .slot.add { cursor: default; }
   </section>
 
   <footer class="muted small" style="margin-top:40px;border-top:1px solid var(--dot);padding-top:14px">
-    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 23, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=23&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
+    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 24, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=24&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
   </footer>
   <div id="printroot"></div>
   <div id="measure" aria-hidden="true"></div>
@@ -1213,7 +1220,7 @@ const blank = () => ({ spins: [], cur: null, versions: [], mine: [], ring: "ever
 let S = blank();
 const KEY = "ppt-proto-3";
 function load() { try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(blank(), JSON.parse(raw)); } catch (e) {} }
-function save() { if (EXMODE) return; if (!S.started) S.started = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function save() { if (EXMODE) return; if (!S.started) S.started = Date.now(); S.lastSeen = Date.now(); S.lastView = S.view; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
 const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const $ = s => document.querySelector(s);
 const val = k => (S.brief[k] || "").trim();
@@ -1487,6 +1494,10 @@ const EXAMPLE = {
     log: [["Mon 19", "letters 12 pt, one ink", "unreadable at 10 m", 1], ["Mon 19", "letters 36 pt, one ink", "reads as printed", 1], ["Tue 20", "letters 36 pt, two inks", "reads as hand-made", 1], ["Wed 21", "letters 72 pt, two inks", "hand-made, but loud", 1], ["Thu 22", "letters 12 pt, two inks", "ink spread, reads best", 1], ["Fri 23", "letters 24 pt, two inks", "the one we keep", 1]]
   },
   started: Date.parse("2026-10-19T09:00:00"), done: Date.parse("2026-11-06T17:00:00"),
+  checkins: [{ at: Date.parse("2026-10-24T18:00:00"), q: "Is your brief clear?", notes: ["Six signs photographed", "Riso booked too late", "Waiting for the induction", "Print room tech"] },
+    { at: Date.parse("2026-10-31T18:00:00"), q: "Does your prototype work?", notes: ["Test prints read from 10 m", "Blue ink too pale", "Paper ran out", "Sam, for a second pair of hands"] },
+    { at: Date.parse("2026-11-06T16:00:00"), q: "Does what you made do what your promise says?", notes: ["Mrs K kept a poster", "Two layouts felt the same", "Nothing now", "Local history group"] }],
+  endHistory: [{ from: "2026-10-30", to: "2026-11-06", at: Date.parse("2026-10-24T18:05:00") }],
   view: "discover"
 };
 function toggleExample() {
@@ -1880,7 +1891,7 @@ function renderPlan() {
       <div class="field"><label for="pl-need${i}">which needs</label>${inp("need" + i, ["e.g. a riso induction", "e.g. the test print, and Mrs K's OK", "e.g. two riso sessions and paper", "", ""][i - 1])}</div>
       <label class="safe"><input type="checkbox" data-safe="${i}"${S.plan["safe" + i] ? " checked" : ""}> I could stop here and still show something</label></div>`).join("") + (nrows < 5 ? `<div><button type="button" class="btn quiet" data-addstep="1">Add a step</button></div>` : "") + `<div class="chainread" id="chainread">${chainRead()}</div>`;
     if (p.money) fl = `<div class="field"><label for="pl-budget">What I can spend</label><div class="money"><span class="w">£</span>${inp("budget", "e.g. 40")}</div></div><p class="muted small" style="margin:0">On the printout: materials, services, transport and 10% to spare, adding up to this.</p>`;
-    if (p.time) fl = `<div class="field"><label for="pl-end">The project ends on</label><input class="line" type="date" id="pl-end" data-plan="end" value="${esc(S.plan.end || "")}"></div><p class="muted small" style="margin:0">Work in a fixed rhythm and keep every rest, even when work goes well (${opLink(21, "oplink-lab")}). The printout has a time grid for each week.</p>`;
+    if (p.time) fl = `<div class="field"><label for="pl-end">The project ends on</label><input class="line" type="date" id="pl-end" data-plan="end" value="${esc(S.plan.end || "")}"></div>${(S.endHistory || []).length ? `<p class="small" style="margin:0">Moved ${S.endHistory.length === 1 ? "once" : S.endHistory.length + " times"}: ${S.endHistory.map(h => `${esc(fmtDay(Date.parse(h.from + "T12:00")))} → ${esc(fmtDay(Date.parse(h.to + "T12:00")))} <span class="muted">(on ${esc(fmtDay(h.at))})</span>`).join("; ")}. Moving the end is fine; keep moving it in the open.</p>` : ""}<p class="muted small" style="margin:0">Work in a fixed rhythm and keep every rest, even when work goes well (${opLink(21, "oplink-lab")}). The printout has a time grid for each week.</p>`;
     const o = p.n ? BY[p.n] : null;
     const card = o ? `<div class="card"><span class="because">The move that keeps this honest</span>${opLink(p.n)}<span class="mtask" data-plantpl="${p.k}">${planFill(p)}</span>${seenIn(o)}</div>` : `<div class="card"><span class="mtask">Show work before you feel ready. Ask them where they get stuck and what's missing, and write down their words.</span></div>`;
     return `<article class="plan"><div class="head"><h3>${p.label}</h3><span class="ask">${p.ask}</span></div><div class="fl">${fl}</div>${card}</article>`;
@@ -1978,13 +1989,14 @@ function sheetHTML() {
     <div class="sfoot"><span>Start with the smallest version that still delivers.</span><span>Moves from Actionary · operations.ramos-saavedra.com</span></div></div></div>`;
   const PAPER = S.paper || {};
   const FOCUS = ["Is your brief clear?", "Does your prototype work?", "Does what you made do what your promise says?"];
-  const weeks = [1, 2, 3].map(w => `<div><b>Week ${w}</b><span class="ex">${FOCUS[w - 1]}</span>${GUT.map((l, i) => ln(l, ((S.weeks || PAPER.weeks || {})[w] || [])[i] || "")).join("")}</div>`).join("");
+  const CI = checkins().filter(ciFilled).slice(-3); while (CI.length < 3) CI.push(null);
+  const weeks = CI.map(c => `<div><b>${c ? esc(ciLabel(c)) : "Date ________"}</b><span class="ex">${c ? esc(c.q || "") : ""}</span>${GUT.map((l, i) => ln(l, c ? (c.notes || [])[i] || "" : "")).join("")}</div>`).join("");
   const B = beforeMoves(), b = byKind(B), a = byKind(afterMoves()), x = byKind(suggestions().map(s => s[0]));
   const kinds = `<div class="h">Acts on</div><div class="h">Discovering</div><div class="h">Methods</div><div class="h">Next</div>` + KINDS.map(([c, nm]) => `<div class="k">${nm}</div><div>${b[c].map(n => esc(BY[n].name)).join(", ")}</div><div>${a[c].map(n => esc(BY[n].name) + (B.includes(n) ? "" : " ●")).join(", ")}</div><div>${x[c].map(n => esc(BY[n].name)).join(", ")}</div>`).join("");
   const sg = suggestions().map(([n]) => `<div class="sm"><span class="nm">${esc(BY[n].name)}</span><span class="ser">${esc(BY[n].task)}</span></div>`).join("");
   const pr = PSTEMS.map((s, i) => ln(s, S.pr[i]) + ln("", "")).join("");
-  const p2 = `<div class="sheet"><div class="sp">${head("4 of 4 · Weekly notes and looking back")}
-    <h4>Weekly notes · fill in by hand at the end of each week</h4><div class="swk">${weeks}</div>
+  const p2 = `<div class="sheet"><div class="sp">${head("4 of 4 · Check-ins and looking back")}
+    <h4>Check-ins · the latest three, or fill in by hand</h4><div class="swk">${weeks}</div>
     <div class="ser" style="color:var(--sheet-muted)">Stuck? Tick what's wrong at operations.ramos-saavedra.com/#stuck and each tick hands you a move.</div>
     <h4>Looking back</h4>
     <div class="two"><div class="sm">${ln("What I made", (S.lb || {}).made)}${ln("Did it keep its promise?", (S.lb || {}).promise)}</div><div class="sm">${ln("What changed because of what I found", (S.lb || {}).changed)}${ln("", "")}</div></div>
@@ -2000,7 +2012,7 @@ function sheetHTML() {
   const pairLn = (p, i) => `<div class="ln"><span class="k">${p.pairs[0]}</span>${esc(pv(p.k + i + "a"))} <span class="k">${p.pairs[1]}</span>${esc(pv(p.k + i + "b"))} ${p.pairs[2] ? `<span class="k">${p.pairs[2]}</span>` : ""}</div>`;
   const st = chainSteps(), safeL = st.filter(i => S.plan["safe" + i]).pop();
   const days = ["M", "T", "W", "T", "F", "S", "S"], slots = ["Morning", "Noon", "Afternoon", "Evening"];
-  const grid = w => `<table><tr><th class="r">Week ${w}</th>${days.map(d => `<th>${d}</th>`).join("")}</tr>${slots.map((s, si) => `<tr><td class="r">${s}</td>${days.map((_, di) => { const c = (((S.grid || PAPER.grid || {})[w] || [])[si] || "")[di]; return `<td class="v">${c && c !== "." ? c : ""}</td>`; }).join("")}</tr>`).join("")}</table>`;
+  const grid = (w, label) => `<table><tr><th class="r">${label || "Week " + w}</th>${days.map(d => `<th>${d}</th>`).join("")}</tr>${slots.map((s, si) => `<tr><td class="r">${s}</td>${days.map((_, di) => { const c = (((S.grid || PAPER.grid || {})[w] || [])[si] || "")[di]; return `<td class="v">${c && c !== "." ? c : ""}</td>`; }).join("")}</tr>`).join("")}</table>`;
   const endTxt = pv("end") ? new Date(pv("end") + "T12:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "______________";
   const budgetLines = ["Materials", "Services", "Transport", "Contingency (10%)"].map((l, i) => ln(l, (PAPER.budget || [])[i] || "")).join("") + ln("Total · what I can spend", pv("budget") ? "£" + pv("budget") : "");
   const taskRows = [...Array(11)].map((_, i) => { const tk = (PAPER.tasks || [])[i]; return `<div class="t"><span class="v">${tk ? esc(tk[0]) : ""}</span></div>${[0, 1, 2, 3].map(c => `<div><span class="box v">${tk && tk[1] === c ? "✓" : ""}</span></div>`).join("")}`; }).join("");
@@ -2010,8 +2022,8 @@ function sheetHTML() {
     <div class="two"><div class="sm">${ln("Successful if", pv("succ"))}${ln("Not successful if", pv("fail"))}</div><div class="sm">${[1, 2, 3, 4, 5].map(i => ln("Step " + i, [pv("ph" + i), pv("need" + i) ? "needs " + pv("need" + i) : "", S.plan["safe" + i] ? "could stop here" : ""].filter(Boolean).join(" · "))).join("")}</div></div>
     <div class="two"><div class="sm">${ln("Way home", safeL ? "step " + safeL + ": " + pv("ph" + safeL) : "")}<span class="note">Keep one plain version you can always finish (KEEP A WAY HOME).</span></div><div class="sm"></div></div>
     <h4>Time · mark ✓ for uninterrupted blocks, ✗ where you're unavailable</h4>
-    <div><span class="endbox">The project ends on ${esc(endTxt)}</span> <span class="note">Set the end while it still works, and keep to it.</span></div>
-    <div class="tg">${grid(1)}${grid(2)}${grid(3)}</div>
+    <div><span class="endbox">The project ends on ${esc(endTxt)}</span> <span class="note">Set the end while it still works, and keep to it.</span>${(S.endHistory || []).length ? `<span class="note"> Moved: ${S.endHistory.map(h => esc(fmtDay(Date.parse(h.from + "T12:00"))) + " → " + esc(fmtDay(Date.parse(h.to + "T12:00")))).join(", ")}.</span>` : ""}</div>
+    <div class="tg">${grid(1, "A usual week")}${grid(9, "Week of ____")}${grid(9, "Week of ____")}</div>
     <div class="two"><div class="sm"><h4>Budget</h4>${budgetLines}<span class="note">Lay everything out before you start; fetch nothing new once started.</span></div>
       <div class="sm"><h4>Who can help</h4><div class="smap">${ringSVG(people(), 220)}</div>${contacts().map(({ p, h }) => ln(p.name.trim(), h[1] + " · " + BY[h[2]].name)).join("") || ln("Contact this week", "")}${(() => { const au = people().filter(p => (p.name || "").trim() && p.aud); return `<span class="lab" style="margin-top:1cqw">Four from my audience · ✓ reached</span>` + [0, 1, 2, 3].map(i => ln(String(i + 1), au[i] ? au[i].name.trim() + (au[i].reached ? "  ✓" : "") : "")).join(""); })()}</div></div>
     <h4>Tasks · specific enough to start today</h4>
@@ -2097,17 +2109,21 @@ function nextMove() {
   const un = au.find(p => !p.reached);
   if (un) return mv(`Reach ${esc(un.name.trim())}, from your audience, and tick them when you have.`, "plan3", 38);
   if (!P("end")) return mv("Set the day your project ends, while it still works.", "plan4", 58);
-  if (![1, 2, 3].some(w => (weeksAll()[w] || []).some(v => (v || "").trim()))) return mv("Do your first check-in: see how far you've got and write four short notes about the week.", "checkin", 57);
+  if (!checkins().some(ciFilled)) return mv("Do your first check-in: see how far you've got and write four short notes about the week.", "checkin", 57);
   if (!S.done) { const q = quest(), miss = q.find(x => !x[1]); return miss ? mv(`To finish the quest you still need ${esc(miss[0].charAt(0).toLowerCase() + miss[0].slice(1))}.`, miss[2], null) : mv("Is your project done? Say so on the Check in page, and the end opens.", "checkin", 57); }
   if (!((S.lb || {}).made || "").trim()) return mv("Say what you made, plainly, as you'd tell a friend.", "end", null);
   if (!S.pr.some(v => (v || "").trim())) return mv("Write your first principle. Its small task finds it in what you already did.", "finale", 16);
   return mv("Go round again: put what you found on the wheel and try something new with it.", "round", 87, "Go round again");
 }
+const VIEWNAME = { discover: "the spin", name: "naming what pulls at you", react: "the React deck", designer: "the designer choices", brief: "your brief", challenge: "this week's challenge", methods: "your research methods", findings: "what you found", exp: "your quick tries", plan1: "what success looks like", plan2: "how it unfolds", plan3: "who can help", plan4: "money and time", checkin: "a check-in", end: "looking back", finale: "your principles", sheet: "your summary", done: "the end" };
+const gapText = ms => { const d = Math.round(ms / DAY); return d < 21 ? `${d} days` : d < 60 ? `${Math.round(d / 7)} weeks` : `${Math.round(d / 30)} months`; };
 function renderNextMove() {
   const el = $("#nextmove"); if (!el) return;
-  const m = nextMove(); el.hidden = !m;
+  const m = nextMove(); el.hidden = !m && !(WELCOME && !EXMODE);
   { const w = document.querySelector(".mast .ways"); if (w) w.classList.toggle("hasnext", !!m); }
-  el.innerHTML = m ? `<span class="lab">Your next move</span><span class="nmtext">${m.text}</span><div class="nmrow">${m.go === "round" ? `<button type="button" class="btn solid" data-round="1">${m.label}</button>` : `<button type="button" class="btn solid" data-go="${m.go}">${m.label}</button>`}${m.n ? `<span class="small">${opLink(m.n, "oplink-lab")}</span>` : ""}</div>` : "";
+  const endPassed = P("end") && !S.done && new Date(P("end") + "T23:59") < new Date();
+  const wb = WELCOME && !EXMODE ? `<div class="welcome"><span class="lab">Welcome back</span><p>You were last here ${gapText(WELCOME.gap)} ago, on ${esc(fmtDay(WELCOME.from, true))}, working on ${esc(VIEWNAME[WELCOME.view] || "your project")}. Projects go on and off; the gap is kept as a pause in your record.</p>${endPassed ? `<p class="attn">Your end date, ${esc(fmtDay(Date.parse(P("end") + "T12:00")))}, has passed.</p><div class="nmrow"><button type="button" class="btn" data-go="plan4">Move the end date</button><button type="button" class="btn" data-go="checkin">It's done: finish it</button></div>` : ""}</div>` : "";
+  el.innerHTML = wb + (m ? `<span class="lab">Your next move</span><span class="nmtext">${m.text}</span><div class="nmrow">${m.go === "round" ? `<button type="button" class="btn solid" data-round="1">${m.label}</button>` : `<button type="button" class="btn solid" data-go="${m.go}">${m.label}</button>`}${m.n ? `<span class="small">${opLink(m.n, "oplink-lab")}</span>` : ""}</div>` : "");
 }
 /* go round again (2a): keep the brief as a version, put short findings on the wheel, open a new quick try */
 function goRound() {
@@ -2124,52 +2140,73 @@ const ROUND = where => `<div class="roundbox"><div><span class="lab">Go round ag
 
 /* ---------- your weeks: a time grid on screen, the same one that prints ---------- */
 const TDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], TSLOTS = ["Morning", "Noon", "Afternoon", "Evening"];
-let gridWeek = 1;
+const gridWeek = 1;
 function gridAll() { return S.grid || (S.paper || {}).grid || {}; }
 function gridRows(w) { return [0, 1, 2, 3].map(i => ((gridAll()[w] || [])[i] || "").padEnd(7, ".").slice(0, 7)); }
 function renderTimeGrid() {
-  const el = $("#tgridwrap"); if (!el) return; const g = gridRows(gridWeek);
+  const el = $("#tgridwrap"); if (!el) return; const g = gridRows(1);
   const count = ch => g.join("").split("").filter(c => c === ch).length;
-  el.innerHTML = `<div class="tgrid"><div class="chips tgtabs">${[1, 2, 3].map(w => `<button type="button" class="chip" data-gweek="${w}" aria-pressed="${w === gridWeek}">Week ${w}</button>`).join("")}</div>
+  el.innerHTML = `<div class="tgrid">
     <table class="tgt"><tr><th></th>${TDAYS.map(d => `<th>${d}</th>`).join("")}</tr>${TSLOTS.map((s, si) => `<tr><th>${s}</th>${TDAYS.map((d, di) => { const c = g[si][di]; return `<td><button type="button" class="tgc ${c === "✓" ? "ok" : c === "✗" ? "no" : ""}" data-gcell="${si}:${di}" aria-label="${d} ${s}: ${c === "✓" ? "free" : c === "✗" ? "unavailable" : "not marked"}">${c === "." ? "" : c}</button></td>`; }).join("")}</tr>`).join("")}</table>
-    <p class="muted small" style="margin:0">Week ${gridWeek}: ${count("✓")} free blocks, ${count("✗")} unavailable. Tap once for a block you can work without interruption (✓), twice for when you can't (✗), a third time to clear. It prints on your summary.</p></div>`;
+    <p class="muted small" style="margin:0">${count("✓")} free blocks a week, ${count("✗")} unavailable. Tap once for a block you can work without interruption (✓), twice for when you can't (✗), a third time to clear. Change it whenever your weeks change. It prints on your summary.</p></div>`;
 }
 
 /* ---------- check in: progress, this week's question, four notes ---------- */
 const FOCUSQ = ["Is your brief clear?", "Does your prototype work?", "Does what you made do what your promise says?"];
-let ciWeek = null;
-function weeksAll() { return S.weeks || (S.paper || {}).weeks || {}; }
+let ciSel = null;
+const DAY = 86400000;
+const fmtDay = (ms, yr) => new Date(ms).toLocaleDateString("en-GB", yr ? { day: "numeric", month: "short", year: "numeric" } : { day: "numeric", month: "short" });
+/* check-ins: dated entries, as many as the project needs (older weekly notes become undated entries) */
+function checkins() {
+  if (!Array.isArray(S.checkins)) {
+    const W = S.weeks || (S.paper || {}).weeks || {};
+    S.checkins = [1, 2, 3].filter(w => (W[w] || []).some(v => (v || "").trim())).map(w => ({ at: null, label: "Week " + w, q: FOCUSQ[w - 1], notes: (W[w] || []).slice(0, 4) }));
+  }
+  return S.checkins;
+}
+const ciFilled = c => (c.notes || []).some(v => (v || "").trim());
+const ciLabel = c => c.at ? fmtDay(c.at, new Date(c.at).getFullYear() !== new Date().getFullYear()) : (c.label || "Earlier");
+/* the question fits where the project stands, not a week number */
+function stageQ() {
+  if (!(val("topic") && BRIEFKEYS.filter(k => k !== "topic" && val(k)).length >= 3)) return FOCUSQ[0];
+  const st = chainSteps(), done = st.filter(i => S.plan["done" + i]).length;
+  if (!(S.tries || []).some(x => (x.noticed || "").trim()) || done < Math.max(1, Math.ceil(st.length / 2))) return FOCUSQ[1];
+  return FOCUSQ[2];
+}
 function renderCheckin() {
   const el = $("#ci"); if (!el) return;
-  const W = weeksAll(); if (ciWeek == null) { ciWeek = [1, 2, 3].find(w => !(W[w] || []).some(v => (v || "").trim())) || 3; }
-  const notes = W[ciWeek] || [];
+  const C = checkins();
+  if (ciSel == null || ciSel >= C.length) ciSel = C.length - 1;
+  const cur = C[ciSel];
+  const today = new Date().toDateString(), last = C[C.length - 1];
+  const canNew = !last || !last.at || new Date(last.at).toDateString() !== today;
   const st = chainSteps(), done = st.filter(i => S.plan["done" + i]).length;
   const col = collected(), found = col.filter(m => (S.learn[m.k] || "").trim()).length;
   const tr = S.tries || [], noticed = tr.filter(x => (x.noticed || "").trim()).length;
   const au = people().filter(p => (p.name || "").trim() && p.aud), reached = au.filter(p => p.reached).length;
-  let left = ""; if (S.done) left = "done"; else if (P("end")) { const d = Math.ceil((new Date(P("end") + "T12:00") - new Date()) / 86400000); left = d > 1 ? `${d} days left` : d === 1 ? "one day left" : d === 0 ? "ends today" : "ended"; }
+  let left = ""; if (S.done) left = "done"; else if (P("end")) { const d = Math.ceil((new Date(P("end") + "T12:00") - new Date()) / DAY); left = d > 1 ? `${d} days left` : d === 1 ? "one day left" : d === 0 ? "ends today" : `<span class="attn">end date passed</span>`; }
   const bar = (n, of) => `<span class="pbar"><span style="width:${of ? Math.round(100 * n / of) : 0}%"></span></span>`;
-  el.innerHTML = `<div class="chips tgtabs">${[1, 2, 3].map(w => `<button type="button" class="chip" data-ciweek="${w}" aria-pressed="${w === ciWeek}">Week ${w}${(W[w] || []).some(v => (v || "").trim()) ? " ✓" : ""}</button>`).join("")}</div>
-    <div class="namer"><span class="q">${FOCUSQ[ciWeek - 1]}</span><p class="muted small" style="margin:0">This week's question. Answer it to yourself before you write the notes below.</p></div>
+  const last6 = C.map((c, i) => [c, i]).slice(-6), older = C.length - last6.length;
+  el.innerHTML = `<div class="chips tgtabs">${older ? `<span class="muted small">${older} earlier ·</span>` : ""}${last6.map(([c, i]) => `<button type="button" class="chip" data-cisel="${i}" aria-pressed="${i === ciSel}">${esc(ciLabel(c))}${ciFilled(c) ? " ✓" : ""}</button>`).join("")}${canNew && !EXMODE ? `<button type="button" class="btn solid" data-cinew="1">Start today's check-in</button>` : ""}</div>
+    ${cur ? `<div class="namer"><span class="q">${esc(cur.q || stageQ())}</span><p class="muted small" style="margin:0">The question for where your project stands. Answer it to yourself before you write the notes below.</p></div>` : `<p class="waiting">No check-ins yet. Start one whenever you sit down to look at the project: once a week works for most people, and a gap is fine too.</p>`}
     <div class="progress"><span class="lab">Where your project stands${left ? " · " + left : ""}</span>
       <div class="prog"><span>Steps done</span>${bar(done, st.length)}<b>${done} of ${st.length || 0}</b></div>
       <div class="prog"><span>Methods with a finding</span>${bar(found, col.length)}<b>${found} of ${col.length}</b></div>
       <div class="prog"><span>Tries with a note</span>${bar(noticed, tr.length)}<b>${noticed} of ${tr.length}</b></div>
       <div class="prog"><span>Audience reached</span>${bar(reached, 4)}<b>${reached} of 4</b></div>
       ${st.length ? `<div class="stepsdone">${st.map(i => `<label><input type="checkbox" data-stepdone="${i}"${S.plan["done" + i] ? " checked" : ""}> <span>${i}. ${esc(P("ph" + i))}</span></label>`).join("")}</div>` : `<p class="muted small" style="margin:0">Write your steps on “How it unfolds” and tick them off here.</p>`}</div>
-    <div class="ci4">${GUT.map((l, i) => `<div class="field"><label for="wk-${i}">${l}</label><textarea class="box" id="wk-${i}" data-week="${i}" rows="2">${esc(notes[i] || "")}</textarea></div>`).join("")}</div>
-    <p class="anote">Stuck this week? Open the <a href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck list</a>: tick what's wrong and each tick hands you a move. Then go round again if you need to.</p>`;
+    ${cur ? `<div class="ci4">${GUT.map((l, i) => `<div class="field"><label for="wk-${i}">${l}</label><textarea class="box" id="wk-${i}" data-week="${i}" rows="2">${esc((cur.notes || [])[i] || "")}</textarea></div>`).join("")}</div>` : ""}
+    <p class="anote">Stuck? Open the <a href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck list</a>: tick what's wrong and each tick hands you a move. Then go round again if you need to.</p>`;
 }
 
 /* ---------- the quest: what has to be done before the end opens ---------- */
 function quest() {
-  const W = weeksAll();
   return [
     ["A brief: your topic and at least three more parts", !!val("topic") && BRIEFKEYS.filter(k => k !== "topic" && val(k)).length >= 3, "brief"],
     ["A research method done, with what you found", collected().some(m => (S.learn[m.k] || "").trim()), "findings"],
     ["A quick try done, with what you noticed", (S.tries || []).some(x => (x.noticed || "").trim()), "exp"],
     ["What success looks like", !!P("succ"), "plan1"],
-    ["At least one check-in", [1, 2, 3].some(w => (W[w] || []).some(v => (v || "").trim())), "checkin"]
+    ["At least one check-in", checkins().some(ciFilled), "checkin"]
   ];
 }
 function renderFinish() {
@@ -2187,22 +2224,25 @@ function renderReveal() {
   const el = $("#reveal"); if (!el) return;
   if (!S.done) { el.innerHTML = `<p class="waiting">Not yet. Finish your project and say so on the Check in page.</p>`; return; }
   const start = S.started || ((S.versions || [])[0] || {}).at || S.done;
-  const days = Math.max(1, Math.round((S.done - start) / 86400000));
-  const tr = S.tries || [], W = weeksAll();
+  const total = Math.max(1, Math.round((S.done - start) / DAY));
+  const pz = (S.pauses || []).filter(p => p.from >= start && p.to <= S.done), pauseDays = pz.reduce((a, p) => a + Math.round((p.to - p.from) / DAY), 0);
+  const days = Math.max(1, total - pauseDays);
+  const tr = S.tries || [];
   const stats = [
-    [days, days === 1 ? "day" : "days"],
+    [days, pz.length ? (days === 1 ? "working day" : "working days") : (days === 1 ? "day" : "days")],
     [S.spins.length, "spins kept"],
     [(S.versions || []).length || 1, "versions of your brief"],
     [collected().filter(m => (S.learn[m.k] || "").trim()).length, "research methods done"],
     [tr.filter(x => (x.noticed || "").trim()).length, "quick tries"],
     [people().filter(p => (p.name || "").trim() && p.reached).length, "people from your audience reached"],
-    [[1, 2, 3].filter(w => (W[w] || []).some(v => (v || "").trim())).length, "check-ins"],
+    [checkins().filter(ciFilled).length, "check-ins"],
     [new Set([...beforeMoves(), ...afterMoves()]).size, "different moves used"]
   ];
   el.innerHTML = `<div class="castle" aria-hidden="true">${PICTO.finale ? `<svg viewBox="0 0 16 16" fill="currentColor">${PICTO.finale}</svg>` : ""}</div>
     <span class="lab">The end of the quest</span>
     <h2>Project done</h2>
     <p class="rv-brief">${esc(val("topic") || "Your project")}${val("outcome") ? `: ${esc(val("outcome"))}` : ""}${val("audience") ? `, for ${esc(val("audience"))}` : ""}.</p>
+    ${pz.length ? `<p class="rv-span">${gapText(S.done - start)} in all, with ${pz.length === 1 ? "one pause" : pz.length + " pauses"}${(S.endHistory || []).length ? `, and the end moved ${S.endHistory.length === 1 ? "once" : S.endHistory.length + " times"}` : ""}.</p>` : (S.endHistory || []).length ? `<p class="rv-span">The end moved ${S.endHistory.length === 1 ? "once" : S.endHistory.length + " times"} on the way.</p>` : ""}
     <div class="rv-stats">${stats.map(([n, l], i) => `<div class="rv-stat" style="animation-delay:${0.15 + i * 0.18}s"><b>${n}</b><span>${l}</span></div>`).join("")}</div>
     <p class="intro rv-next" style="animation-delay:${0.15 + stats.length * 0.18}s">Now look back: what you made, whether it kept its promise, and how your way of working moved. Then write the three principles you'll carry into the next one.</p>
     <div class="rv-next" style="animation-delay:${0.3 + stats.length * 0.18}s"><button type="button" class="btn solid" data-go="end">Look back</button></div>`;
@@ -2210,7 +2250,7 @@ function renderReveal() {
 
 /* ---------- save to a file, load from a file ---------- */
 function saveFile() {
-  const data = JSON.stringify({ app: "project-planning-toolkit", version: 23, saved: new Date().toISOString(), state: S });
+  const data = JSON.stringify({ app: "project-planning-toolkit", version: 24, saved: new Date().toISOString(), state: S });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([data], { type: "application/json" }));
   a.download = "my-project-" + new Date().toISOString().slice(0, 10) + ".json";
@@ -2240,7 +2280,7 @@ function show(view) {
   if (S.view !== view) { const rm = document.getElementById("roundmsg"); if (rm) rm.textContent = ""; }
   S.view = view; if (view !== "methods") PRINTCARDS = false;
   try { if (location.hash !== "#" + view) history.replaceState(null, "", "#" + view); } catch (e) {}
-  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=23&page=" + encodeURIComponent(view); }
+  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=24&page=" + encodeURIComponent(view); }
   const L = lockOf(view), shown = L ? "locked" : view;
   if (L) renderLocked(view, L);
   document.querySelectorAll("section.step").forEach(s => s.hidden = s.id !== shown);
@@ -2261,9 +2301,9 @@ document.addEventListener("click", e => {
   if (e.target.closest("[data-printcards]")) { PRINTCARDS = true; renderSheet(); renderColl(); return; }
   if (e.target.closest("[data-printcards-off]")) { PRINTCARDS = false; renderSheet(); renderColl(); return; }
   const bk = e.target.closest("[data-back]"); if (bk) { show(S.last || "discover"); toTop(); return; }
-  const gw = e.target.closest("[data-gweek]"); if (gw) { gridWeek = +gw.dataset.gweek; renderTimeGrid(); return; }
   const gc = e.target.closest("[data-gcell]"); if (gc && !EXMODE) { const [si, di] = gc.dataset.gcell.split(":").map(Number); const G = JSON.parse(JSON.stringify(gridAll())); const rows = gridRows(gridWeek); const cur = rows[si][di], nx = cur === "." ? "✓" : cur === "✓" ? "✗" : "."; rows[si] = rows[si].slice(0, di) + nx + rows[si].slice(di + 1); G[gridWeek] = rows; S.grid = G; renderTimeGrid(); save(); return; }
-  const cw = e.target.closest("[data-ciweek]"); if (cw) { ciWeek = +cw.dataset.ciweek; renderCheckin(); return; }
+  const cs = e.target.closest("[data-cisel]"); if (cs) { ciSel = +cs.dataset.cisel; renderCheckin(); return; }
+  if (e.target.closest("[data-cinew]") && !EXMODE) { const C = checkins(); C.push({ at: Date.now(), q: stageQ(), notes: ["", "", "", ""] }); ciSel = C.length - 1; renderCheckin(); renderFinish(); save(); const f = $("#wk-0"); if (f) f.focus(); return; }
   if (e.target.closest("[data-audadd]") && !EXMODE) { people().push({ name: "", ring: 1, help: [], when: "now", aud: true }); renderPeople(); save(); const el = document.getElementById("pp-" + (S.people.length - 1)); if (el) { el.scrollIntoView({ block: "center" }); el.focus(); } return; }
   const fin = e.target.closest("[data-finish]"); if (fin && !EXMODE) { if (fin.disabled) return; S.done = Date.now(); save(); show("done"); toTop(); return; }
   if (e.target.closest("[data-unfinish]") && !EXMODE) { S.done = null; save(); show("checkin"); return; }
@@ -2350,9 +2390,10 @@ document.addEventListener("input", e => {
   else if (d.stuck !== undefined) { if (S.spins[+d.stuck]) S.spins[+d.stuck][3] = t.value; }
   else if (d.disc) S.disc[d.disc] = t.value;
   else if (d.learn) S.learn[d.learn] = t.value;
-  else if (d.plan) { S.plan[d.plan] = t.value; refreshPlanCards(); refreshChain(); renderProjline(); }
+  else if (d.plan) { if (d.plan === "end") { const old = S.plan.end || "", nv = t.value; if (old && nv && old !== nv) { S.endHistory = S.endHistory || []; const lh = S.endHistory[S.endHistory.length - 1]; if (lh && Date.now() - lh.at < 120000) { lh.to = nv; if (lh.from === nv) S.endHistory.pop(); } else S.endHistory.push({ from: old, to: nv, at: Date.now() }); } }
+    S.plan[d.plan] = t.value; refreshPlanCards(); refreshChain(); renderProjline(); }
   else if (d.p !== undefined) S.pr[+d.p] = t.value;
-  else if (d.week !== undefined) { const W = JSON.parse(JSON.stringify(weeksAll())); W[ciWeek] = (W[ciWeek] || ["", "", "", ""]).slice(); W[ciWeek][+d.week] = t.value; S.weeks = W; }
+  else if (d.week !== undefined) { const C = checkins(), c = C[ciSel]; if (c) { c.notes = (c.notes || ["", "", "", ""]).slice(); c.notes[+d.week] = t.value; } }
   else if (d.lb) { S.lb = S.lb || {}; S.lb[d.lb] = t.value; }
   else if (d.chal) { S.chal = S.chal || {}; S.chal[d.chal] = t.value; }
   else if (d.when || d.dur) { const f = d.when ? "when" : "dur", k = d.when || d.dur; S[f] = S[f] || {}; S[f][k] = t.value; }
@@ -2389,6 +2430,9 @@ let sizeT; window.addEventListener("resize", () => { clearTimeout(sizeT); sizeT 
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeWheel);
 
 load();
+/* coming back after a gap: a gap over two weeks is recorded as a pause, and the next move says welcome back */
+let WELCOME = null;
+{ const ls = S.lastSeen; if (ls && Date.now() - ls > 14 * DAY && (S.started || S.spins.length || val("topic"))) { S.pauses = S.pauses || []; S.pauses.push({ from: ls, to: Date.now() }); WELCOME = { gap: Date.now() - ls, from: ls, view: S.lastView || S.view }; } }
 if (!S.cur) S.cur = [rnd(RV.length), rnd(RW.length), rnd(RO.length)];
 { const h = decodeURIComponent(location.hash.slice(1)); show(h && document.getElementById(h) && document.getElementById(h).classList.contains("step") && h !== "locked" ? h : (S.view || "discover")); }
 window.addEventListener("hashchange", () => { const h = decodeURIComponent(location.hash.slice(1)); if (h && h !== S.view && document.getElementById(h) && document.getElementById(h).classList.contains("step") && h !== "locked") { show(h); toTop(); } });
