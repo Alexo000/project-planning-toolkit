@@ -700,6 +700,15 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
   .projline button { flex: none; }
   .audslots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* ---------- round 20: next move, go round again, a way forward ---------- */
+.nextmove { display: grid; gap: 10px; border: 2px solid var(--ink); border-left: 6px solid var(--you); padding: 16px 18px; max-width: 640px; background: var(--paper); }
+.nextmove .lab, .roundbox .lab { font: 500 0.76rem var(--mono); letter-spacing: 0.07em; text-transform: uppercase; color: var(--you); }
+.nextmove .nmtext { font: 400 1.15rem/1.45 var(--serif); }
+.nmrow { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.roundbox { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 16px 0; }
+.roundbox > div { flex: 1 1 280px; display: grid; gap: 4px; }
+#roundmsg:empty { display: none; }
 </style>
 <style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
@@ -711,7 +720,8 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
     <h1>Project Planning Toolkit</h1>
     <p class="lede">For taking a project of your own from a hunch to something made, whether it runs for a weekend or a whole term. Find what you want to work on, write a brief, choose how to research it, plan the making, and look back at how you worked. Every step hands you a design move to try.</p>
     <p class="leave">You leave with a brief, research methods, quick experiments, a plan, and a workbook to print.</p>
-    <div class="ways"><button type="button" class="btn solid" data-go="discover">Help me find an idea</button><button type="button" class="btn" data-go="brief">I already have an idea</button><button type="button" class="btn quiet" id="exswitch" data-exswitch="1">See a worked example</button></div>
+    <div class="nextmove" id="nextmove" hidden></div>
+    <div class="ways"><button type="button" class="btn solid" data-go="discover">Help me find an idea</button><button type="button" class="btn" data-go="brief">I already have an idea</button><button type="button" class="btn" data-forward="1">I need a way forward</button><button type="button" class="btn quiet" id="exswitch" data-exswitch="1">See a worked example</button></div>
   </header>
 
   <div id="topanchor"></div>
@@ -726,7 +736,7 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
     <button type="button" data-go="finale"><span class="num">7</span>Principles</button>
   </nav>
   <div class="row2"><nav class="subnav" id="subnav" aria-label="Pages in this step" hidden></nav>
-    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=19" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
+    <span class="tools"><button type="button" class="toollink" data-go="sheet" data-tool="sheet">Summary</button><a class="stucklink" href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck?</a><a class="toollink fblink" id="fblink" href="https://tally.so/r/rjNxGo?version=20" target="_blank" rel="noopener">Feedback</a><span class="pop"><button type="button" class="toollink" id="more" aria-expanded="false" aria-label="More">⋯</button>
       <div class="morepop" id="morepop" hidden><button type="button" data-savefile="1">Save to a file</button><button type="button" data-loadfile="1">Load from a file</button><small>Carry your project to another device: save it here, then load it there. Loading replaces what's in this browser now.</small><input type="file" id="loadfile" accept=".json,application/json" hidden><hr><button type="button" id="reset">Start a new project</button><small id="reset-note">Clears everything you've written, in this browser only. Print your summary first if you want to keep it.</small></div></span></span></div>
   <div class="projline" id="projline" hidden></div>
   <div class="savestate" id="savestate"><span>Saved in this browser</span><span class="sep">·</span><button type="button" class="linkbtn" data-savefile="1">Back up to a file</button><span class="muted" id="savemsg"></span></div>
@@ -845,6 +855,7 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
     <h2>What you found</h2>
     <p class="intro">Come back here once you've done your methods. Write down only what surprised you; what you expected doesn't need writing down. A method that found nothing surprising still counts, so write that.</p>
     <div class="name4" id="findings-list"></div>
+    <div id="round-findings"></div>
     <div class="nextrow"><button class="btn" type="button" data-go="methods">Back</button><button class="btn solid" type="button" data-go="exp">Next: experiment</button></div>
   </section>
 
@@ -852,11 +863,14 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
     <h2>Experiment <button type="button" class="pbtn" data-pop="exp" aria-expanded="false" aria-label="A note from the author">?</button></h2>
     <div class="popnote" id="pop-exp" hidden>What makes a try cheap? It takes under an hour, uses what's to hand, and you wouldn't mind throwing it away. If a try needs buying or booking, make a rougher one first.</div>
     <p class="intro">You don't need a question to start. Try things quickly and cheaply: change one thing, look, and write down one thing you noticed. Do a few. When one keeps pulling at you, sharpen it into a question further down.</p>
+    <div id="forwardnote"></div>
+    <p class="anote" id="roundmsg" style="min-height:0"></p>
     <div id="tries"></div>
     <h3 class="sharpen-h">Sharpen one into a question <button type="button" class="pbtn" data-pop="sharpen" aria-expanded="false" aria-label="A note from the author">?</button></h3>
     <div class="popnote" id="pop-sharpen" hidden>Only sharpen a try that keeps pulling at you, and only when you want to. Write what you expect before you start: if you write it afterwards, the result can't surprise you.</div>
     <div id="pulled"></div>
     <div class="plans" id="exp-list"></div>
+    <div id="round-exp"></div>
     <div class="tip"><b>Not a lab.</b> You don't need statistics. You need to know what you changed, what you kept the same, and what actually happened, written down while it's fresh.</div>
     <div class="nextrow"><button class="btn" type="button" data-go="findings">Back</button><button class="btn solid" type="button" data-go="plan1">Next: your plan</button></div>
   </section>
@@ -913,6 +927,7 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
     <h3>Moves to look into next</h3>
     <p class="muted small" style="margin:-14px 0 0">Moves connect to each other: one leads on to another, or pairs with it, or can stand in for it. These are the ones closest to what you already did, that you haven't tried.</p>
     <div class="next" id="next"></div>
+    <div id="round-end"></div>
     <div class="nextrow"><button class="btn" type="button" data-go="plan4">Back</button><button class="btn solid" type="button" data-go="finale">Next: your principles</button></div>
   </section>
 
@@ -948,7 +963,7 @@ body.exmode .audslots .slot.done { background: var(--ex); border-color: var(--ex
   </section>
 
   <footer class="muted small" style="margin-top:40px;border-top:1px solid var(--dot);padding-top:14px">
-    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Design Operations</a>. Test version 19, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=19&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
+    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 20, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=20&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
   </footer>
   <div id="printroot"></div>
   <div id="measure" aria-hidden="true"></div>
@@ -1080,7 +1095,7 @@ function seenIn(o) { return `<span class="seen">Seen in: ${o.url ? `<a href="${e
 /* ---------- links to the live explorer ---------- */
 const slug = s => String(s).toLowerCase().replace(/['’]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const opURL = n => "https://operations.ramos-saavedra.com/#" + slug(BY[n].name);
-const opLink = (n, cls) => `<a class="${cls || "mname"} oplink" href="${opURL(n)}" target="_blank" rel="noopener" title="Open ${esc(BY[n].name)} in Design Operations"><span class="sym" aria-hidden="true">${BY[n].sym || ""}</span>${esc(BY[n].name)}</a>`;
+const opLink = (n, cls) => `<a class="${cls || "mname"} oplink" href="${opURL(n)}" target="_blank" rel="noopener" title="Open ${esc(BY[n].name)} in Actionary"><span class="sym" aria-hidden="true">${BY[n].sym || ""}</span>${esc(BY[n].name)}</a>`;
 
 /* ---------- pages inside a chapter, and the project so far ---------- */
 const PAGES = { discover: [["discover", "Spin"], ["name", "Name what's pulling at you"], ["react", "React"], ["designer", "What kind of designer"]], brief: [["brief", "Your brief"], ["challenge", "This week's challenge"]], methods: [["methods", "Write them up"], ["findings", "What you found"]], plan: [["plan1", "What success looks like"], ["plan2", "How it unfolds"], ["plan3", "Who can help"], ["plan4", "Money and time"]] };
@@ -1271,6 +1286,7 @@ const LOCKS = {
 const LOCKORDER = ["methods", "exp", "plan", "end", "finale"];
 function lockOf(view) {
   const ch = CHOF[view] || view, i = LOCKORDER.indexOf(ch);
+  if (ch === "exp" && S.forward) return null;
   if (i < 0) return null;
   for (let j = 0; j <= i; j++) { const L = LOCKS[LOCKORDER[j]]; if (L.checks().some(c => !c[1])) return L; }
   return null;
@@ -1681,7 +1697,7 @@ function cardsHTML() {
   const ms = collected();
   const head = `<div class="shead"><div class="stitle">Research<br>method<br>cards</div><div class="smeta"><span>Cut along the dashed lines</span><span>Name ____________________</span></div></div>`;
   const card = m => { const o = chosen(m); return `<div class="mcard"><span class="lab">${m.label} · ${m.ask}</span><span class="nm">${esc(BY[o[1]].name)}</span><span class="ser">${fill(o[2], null, true)}</span>${ln("To find out", S.disc[m.k])}${ln("When", (S.when || {})[m.k])}${ln("How long", (S.dur || {})[m.k])}${ln("What surprised me", "")}${ln("", "")}${ln("", "")}</div>`; };
-  return `<div class="sheet"><div class="sp">${head}<div class="mcards">${ms.map(card).join("")}</div><div class="grow"></div><div class="sfoot"><span>Write only what surprised you. Then type it in under “What you found”.</span><span>Moves from Design Operations · operations.ramos-saavedra.com</span></div></div></div>`;
+  return `<div class="sheet"><div class="sp">${head}<div class="mcards">${ms.map(card).join("")}</div><div class="grow"></div><div class="sfoot"><span>Write only what surprised you. Then type it in under “What you found”.</span><span>Moves from Actionary · operations.ramos-saavedra.com</span></div></div></div>`;
 }
 function sizeResult(m) {
   const box = document.querySelector(`[data-method="${m.k}"] .resbox`); if (!box || !box.offsetWidth) return;
@@ -1819,7 +1835,7 @@ function sheetHTML() {
     <h4>Research methods</h4>
     <div class="two">${methods}</div>
     <div class="grow"></div>
-    <div class="sfoot"><span>Start with the smallest version that still delivers.</span><span>Moves from Design Operations · operations.ramos-saavedra.com</span></div></div></div>`;
+    <div class="sfoot"><span>Start with the smallest version that still delivers.</span><span>Moves from Actionary · operations.ramos-saavedra.com</span></div></div></div>`;
   const PAPER = S.paper || {};
   const FOCUS = ["Is your brief clear?", "Does your prototype work?", "Does what you made do what your promise says?"];
   const weeks = [1, 2, 3].map(w => `<div><b>Week ${w}</b><span class="ex">${FOCUS[w - 1]}</span>${GUT.map((l, i) => ln(l, ((PAPER.weeks || {})[w] || [])[i] || "")).join("")}</div>`).join("");
@@ -1862,7 +1878,7 @@ function sheetHTML() {
     <div class="tasks"><div class="h t" style="justify-content:flex-start">Task</div><div class="h">Do first</div><div class="h">Schedule</div><div class="h">Minimise</div><div class="h">Rethink</div>${taskRows}</div>
     <span class="note">Ticked Rethink? Decide it's gone and let it go (ARCHIVE).</span>
     <div class="grow"></div>
-    <div class="sfoot"><span>Most people underestimate time by half. Two hours means three.</span><span>Moves from Design Operations · operations.ramos-saavedra.com</span></div></div></div>`;
+    <div class="sfoot"><span>Most people underestimate time by half. Two hours means three.</span><span>Moves from Actionary · operations.ramos-saavedra.com</span></div></div></div>`;
   const xv = k => X(k);
   const rungs = RUNGS.map((r, i) => `<div><span class="box">${S.exp.rung === i ? "✓" : ""}</span>${r}</div>`).join("");
   const logRows = [...Array(10)].map((_, i) => { const r = (PAPER.log || [])[i]; return `<div>${i + 1}</div><div class="v">${r ? esc(r[0]) : ""}</div><div class="v">${r ? esc(r[1]) : ""}</div><div class="v">${r ? esc(r[2]) : ""}</div><div><span class="box v">${r && r[3] ? "✓" : ""}</span></div>`; }).join("");
@@ -1879,7 +1895,7 @@ function sheetHTML() {
     <div class="two"><div class="sm">${ln("The one thing I noticed", xv("happened"))}${ln("", "")}</div><div class="sm"></div></div>
     <div>Next I'll ${["try it again", "change one thing", "leave it"].map(d => `<span class="box">${S.exp.decision === d ? "✓" : ""}</span>${d} `).join("&nbsp; ")} <span class="note">Check against what you expected, not how you feel that day (CALIBRATE).</span></div>
     <div class="grow"></div>
-    <div class="sfoot"><span>It's fine to fail; what matters is that you can see why.</span><span>Moves from Design Operations · operations.ramos-saavedra.com</span></div></div></div>`;
+    <div class="sfoot"><span>It's fine to fail; what matters is that you can see why.</span><span>Moves from Actionary · operations.ramos-saavedra.com</span></div></div></div>`;
   return p1 + pE + p3 + p2;
 }
 /* each A4 page is shrunk just enough to hold everything on it, measured once off screen, so nothing is cut off on screen or in print */
@@ -1910,9 +1926,62 @@ function renderSheet() {
   const h = m.innerHTML; m.innerHTML = ""; $("#sheet-view").innerHTML = h; $("#printroot").innerHTML = PRINTCARDS && collected().length ? fitSheets(cardsHTML()) : h;
 }
 
+/* ---------- your next move (Studio Notes idea, rebuilt: 1a, 2026-10-15) ---------- */
+function nextMove() {
+  const has = S.spins.length || Object.values(S.named).some(v => (v || "").trim()) || BRIEFKEYS.some(k => val(k)) || (S.tries || []).length || S.forward;
+  if (!has) return null;
+  if (S.forward && !(S.tries || []).length) return { text: "Spin a quick try for the project you've got going, and do it today.", go: "exp", n: 87, label: "Go there" };
+  if (S.forward && (S.tries || []).some(x => !(x.noticed || "").trim())) { const i = S.tries.findIndex(x => !(x.noticed || "").trim()); return { text: `Write what you noticed in try ${i + 1}: one thing, in a few words.`, go: "exp", n: S.tries[i].n || 5, label: "Go there" }; }
+  const mv = (text, go, n, label) => ({ text, go, n, label: label || "Go there" });
+  if (!val("topic")) {
+    const st = S.spins.find(s => (s[3] || "").trim());
+    if (st) return mv(`Find two more things that share what stuck in your spin (“${esc(st[3].trim())}”), then write the rule that links them. That rule can be your topic.`, "name", 51);
+    if (!S.spins.length && !S.forward) return mv("Spin once, do the small task it hands you, and keep it if anything sticks.", "discover", RO[0][0]);
+    return mv("Write your topic: one thing you've kept coming back to, in a few words.", "brief", 52);
+  }
+  const miss = BRIEFKEYS.filter(k => k !== "topic" && !val(k));
+  if (miss.length > 3) return mv(`Fill in ${esc(GAP[miss[0]])} in your brief. Methods open once your brief has its topic and three more parts.`, "brief", null);
+  if (S.forward && !(S.tries || []).length) return mv("Spin a quick try for the project you've got going, and do it today.", "exp", 87);
+  const col = collected();
+  if (!col.length) return mv("Write up one research method: answer its question, say when you'll do it and how long you'll give it, and add it to your methods.", "methods", null);
+  const todo = col.find(m => !(S.learn[m.k] || "").trim());
+  if (todo) { const o = chosen(todo), wd = [(S.when || {})[todo.k], (S.dur || {})[todo.k]].filter(x => (x || "").trim()).join(", "); return mv(`Do your ${todo.label} method (${esc(BY[o[1]].name)}${wd ? ", " + esc(wd) : ""}) and write down what surprised you.`, "findings", o[1]); }
+  const tr = S.tries || [];
+  if (!tr.length) return mv("Spin a quick try, do it, and write down one thing you noticed.", "exp", 87);
+  const tn = tr.findIndex(x => !(x.noticed || "").trim());
+  if (tn >= 0) return mv(`Write what you noticed in try ${tn + 1}: one thing, in a few words.`, "exp", tr[tn].n || 5);
+  if (!P("succ")) return mv("Write what success looks like: one sentence you could check at the end of each week.", "plan1", 57);
+  if (!chainSteps().length) return mv("Write your first step and what it needs, and mark whether you could stop there.", "plan2", 97);
+  const au = people().filter(p => (p.name || "").trim() && p.aud);
+  if (au.length < 4) return mv(`Find ${4 - au.length === 1 ? "one more person" : (4 - au.length) + " more people"} from your audience you can reach this week, and tag them.`, "plan3", 29);
+  const un = au.find(p => !p.reached);
+  if (un) return mv(`Reach ${esc(un.name.trim())}, from your audience, and tick them when you have.`, "plan3", 38);
+  if (!P("end")) return mv("Set the day your project ends, while it still works.", "plan4", 58);
+  if (!((S.lb || {}).made || "").trim()) return mv("Say what you made, plainly, as you'd tell a friend.", "end", null);
+  if (!S.pr.some(v => (v || "").trim())) return mv("Write your first principle. Its small task finds it in what you already did.", "finale", 16);
+  return mv("Go round again: put what you found on the wheel and try something new with it.", "round", 87, "Go round again");
+}
+function renderNextMove() {
+  const el = $("#nextmove"); if (!el) return;
+  const m = nextMove(); el.hidden = !m;
+  el.innerHTML = m ? `<span class="lab">Your next move</span><span class="nmtext">${m.text}</span><div class="nmrow">${m.go === "round" ? `<button type="button" class="btn solid" data-round="1">${m.label}</button>` : `<button type="button" class="btn solid" data-go="${m.go}">${m.label}</button>`}${m.n ? `<span class="small">${opLink(m.n, "oplink-lab")}</span>` : ""}</div>` : "";
+}
+/* go round again (2a): keep the brief as a version, put short findings on the wheel, open a new quick try */
+function goRound() {
+  const b = {}; BRIEFKEYS.forEach(k => b[k] = val(k));
+  const last = (S.versions || []).slice(-1)[0];
+  const kept = BRIEFKEYS.some(k => b[k]) && (!last || JSON.stringify(last.b) !== JSON.stringify(b));
+  if (kept) S.versions = [...(S.versions || []), { at: Date.now(), b }];
+  const add = [...Object.values(S.learn || {}), ...(S.tries || []).map(x => x.noticed)].map(v => (v || "").trim()).filter(v => v && v.length <= 60);
+  S.mine = S.mine || []; add.forEach(v => { if (!S.mine.some(x => x.toLowerCase() === v.toLowerCase())) S.mine.push(v); });
+  spinTry(); save(); show("exp"); toTop();
+  const n = $("#roundmsg"); if (n) n.textContent = [kept ? "Your brief is kept as a version." : "", add.length ? `${add.length} short ${add.length === 1 ? "finding is" : "findings are"} now on the wheel as “My things”.` : "", "Here's a new try."].filter(Boolean).join(" ");
+}
+const ROUND = where => `<div class="roundbox"><div><span class="lab">Go round again</span><p class="small" style="margin:0">Keeps your brief as a version, puts your short findings on the wheel as “My things”, and hands you a new quick try. Projects go round more than once.</p></div><button type="button" class="btn" data-round="1">Go round again</button></div>`;
+
 /* ---------- save to a file, load from a file ---------- */
 function saveFile() {
-  const data = JSON.stringify({ app: "project-planning-toolkit", version: 19, saved: new Date().toISOString(), state: S });
+  const data = JSON.stringify({ app: "project-planning-toolkit", version: 20, saved: new Date().toISOString(), state: S });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([data], { type: "application/json" }));
   a.download = "my-project-" + new Date().toISOString().slice(0, 10) + ".json";
@@ -1934,12 +2003,15 @@ function loadFile(file) {
 }
 
 /* ---------- wiring ---------- */
-function renderAll() { renderBack(); renderReact(); renderChal(); renderPairs(); renderColl(); renderFindings(); renderTries(); renderVersions(); renderMine(); renderProjline(); renderPrinciples(); renderExp(); renderPeople(); renderReels(); renderKept(); renderRecap(); renderNamers(); renderParts(); $("#b-sentence").innerHTML = sentenceHTML(); renderMethods(); renderPlan(); renderEnd(); renderSheet(); }
+function renderAll() { renderNextMove(); ["findings", "exp", "end"].forEach(k => { const el = document.getElementById("round-" + k); if (el) el.innerHTML = ROUND(k); });
+  { const fn = $("#forwardnote"); if (fn) fn.innerHTML = S.forward ? `<p class="anote">You came in with a project already going. Spin a cheap try for it and do it today. Stuck on something specific? Open the <a href="https://operations.ramos-saavedra.com/#stuck" target="_blank" rel="noopener">Stuck list</a>: tick what's wrong and each tick hands you a move.</p>` : ""; }
+  renderBack(); renderReact(); renderChal(); renderPairs(); renderColl(); renderFindings(); renderTries(); renderVersions(); renderMine(); renderProjline(); renderPrinciples(); renderExp(); renderPeople(); renderReels(); renderKept(); renderRecap(); renderNamers(); renderParts(); $("#b-sentence").innerHTML = sentenceHTML(); renderMethods(); renderPlan(); renderEnd(); renderSheet(); }
 function show(view) {
   if (!document.getElementById(view) || view === "locked") view = "discover";
+  if (S.view !== view) { const rm = document.getElementById("roundmsg"); if (rm) rm.textContent = ""; }
   S.view = view; if (view !== "methods") PRINTCARDS = false;
   try { if (location.hash !== "#" + view) history.replaceState(null, "", "#" + view); } catch (e) {}
-  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=19&page=" + encodeURIComponent(view); }
+  { const fb = document.getElementById("fblink"); if (fb) fb.href = "https://tally.so/r/rjNxGo?version=20&page=" + encodeURIComponent(view); }
   const L = lockOf(view), shown = L ? "locked" : view;
   if (L) renderLocked(view, L);
   document.querySelectorAll("section.step").forEach(s => s.hidden = s.id !== shown);
@@ -1960,6 +2032,8 @@ document.addEventListener("click", e => {
   if (e.target.closest("[data-printcards]")) { PRINTCARDS = true; renderSheet(); renderColl(); return; }
   if (e.target.closest("[data-printcards-off]")) { PRINTCARDS = false; renderSheet(); renderColl(); return; }
   const bk = e.target.closest("[data-back]"); if (bk) { show(S.last || "discover"); toTop(); return; }
+  if (e.target.closest("[data-forward]")) { if (!EXMODE) { S.forward = true; save(); } show("exp"); toTop(); return; }
+  if (e.target.closest("[data-round]")) { if (!EXMODE) goRound(); return; }
   if (e.target.closest("[data-savefile]")) { if (EXMODE) toggleExample(); saveFile(); return; }
   if (e.target.closest("[data-loadfile]")) { $("#loadfile").click(); return; }
   if (e.target.closest("#more")) { const p = $("#morepop"); p.hidden = !p.hidden; $("#more").setAttribute("aria-expanded", String(!p.hidden)); return; }
