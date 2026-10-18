@@ -128,7 +128,7 @@ textarea.line { resize: vertical; min-height: 2.2em; }
 .hand { border-left: 3px solid var(--ink); padding: 2px 0 2px 14px; display: grid; gap: 4px; max-width: 62ch; }
 .hand .why { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
 
-/* brief: PAMP diagram after the workbook */
+/* brief: diagram of the four parts after the workbook */
 .pamp { display: grid; grid-template-columns: 1fr auto 1fr; grid-template-rows: auto auto auto; gap: 6px 14px; align-items: center; justify-items: center; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); max-width: 420px; margin: 4px auto; padding: 18px; border: 1px dotted var(--dot); border-radius: 12px; position: relative; }
 .pamp > span { text-align: center; }
 .pamp .c { font-size: 1.4rem; font-weight: 800; color: var(--ink); letter-spacing: 0.02em; }
@@ -904,7 +904,7 @@ body.exmode .audslots .slot.add { cursor: default; }
   <section class="step" id="react" hidden>
     <div class="pageof">Discover · 3 of 4</div>
     <h2>React</h2>
-    <p class="intro">Forty positions from the Practice Playground deck, one at a time. Don't analyse them; mark your first reaction and move on. You're not choosing one. You're finding out what you react to. <button type="button" class="pbtn" data-pop="react" aria-expanded="false" aria-label="A note from the author">?</button></p>
+    <p class="intro">Forty strong opinions about everyday things, one at a time. Don't analyse them; mark your first reaction and move on. You're not choosing one. You're finding out what you react to. <button type="button" class="pbtn" data-pop="react" aria-expanded="false" aria-label="A note from the author">?</button></p>
     <div class="popnote" id="pop-react" hidden>Why sort statements that aren't yours? Reacting is quicker than inventing. Your angry and bin piles often say more about what you care about than your keep pile does.</div>
     <p class="muted small" style="margin:-16px 0 0" id="deck-note">You don't have to sort all 40. After ten or so, look at your piles, and stop whenever something stands out.</p>
     <div class="deck" id="deck"></div>
@@ -931,7 +931,7 @@ body.exmode .audslots .slot.add { cursor: default; }
     <p class="intro">Five parts that work as one system, each shaping the others. Everything you do next should answer to this statement. Once you have it, decisions get quicker, even when things get messy.</p>
     <div class="pamp" aria-hidden="true">
       <span></span><span>Position<br>↓</span><span></span>
-      <span>Audience →</span><span class="c">PAMP</span><span>← Medium</span>
+      <span>Audience →</span><span class="c">Brief</span><span>← Medium</span>
       <span></span><span>↑<br>Promise</span><span></span>
       <span class="frame">all held inside one restriction</span>
     </div>
@@ -1097,7 +1097,7 @@ body.exmode .audslots .slot.add { cursor: default; }
   </section>
 
   <footer class="muted small" style="margin-top:40px;border-top:1px solid var(--dot);padding-top:14px">
-    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks come from the Supermenu wheel; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 24, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=24&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
+    Adapted from the Project Planning Toolkit &amp; Workbook by Alejandro Ramos Saavedra. The spinning tasks are adapted from <a href="https://www.ramos-saavedra.com/supermenu" target="_blank" rel="noopener">Supermenu</a>; the moves come from <a href="https://operations.ramos-saavedra.com" target="_blank" rel="noopener">Actionary</a>. Test version 24, October 2026. <a class="fblink" href="https://tally.so/r/rjNxGo?version=24&amp;page=footer" target="_blank" rel="noopener">Tell me what helped and what broke</a>.
   </footer>
   <div id="printroot"></div>
   <div id="measure" aria-hidden="true"></div>
@@ -1466,8 +1466,8 @@ const EXAMPLE = {
   disc: { P: "what I'm assuming about why signs disappear", A: "how shopkeepers treat their own signs", M: "where riso ink stops looking printed", R: "whether a poster changes how a sign is seen" },
   learn: { P: "the sign painted badly on purpose got more attention than the neat one", A: "three of five shopkeepers never look at their own sign", M: "two layers of ink start to look hand-painted from a distance", R: "next to the shop, the poster made people look up at the real sign" },
   exp: { q: "a riso print reads as hand-made from across the street", expect: "only the biggest letters will", change: "the letter size", same: "colour, paper and a 10-metre viewing distance", rung: 3, record: "a photo from 10 metres and one line", stop: "six prints, or Friday", happened: "the smallest letters read best, because the ink spread", decision: "change one thing" },
-  people: [{ name: "Mrs K (newsagent)", ring: 1, help: ["reach", "test"], when: "now", aud: true, reached: true }, { name: "Sam", ring: 0, help: ["make"], when: "now" }, { name: "Jo", ring: 0, help: ["advice"], when: "later" }, { name: "Print room tech", ring: 1, help: ["space", "make"], when: "now" }, { name: "Local history group", ring: 2, help: ["reach"], when: "later" }, { name: "A (baker)", ring: 2, help: ["test"], when: "now", aud: true, reached: true }, { name: "D (key cutter)", ring: 2, help: ["test"], when: "now", aud: true }, { name: "R (sign painter)", ring: 2, help: ["advice"], when: "no" }],
-  plan: { succ: "two shopkeepers ask to keep a poster", fail: "nobody outside my studio sees it", ph1: "one test print", need1: "a riso induction", safe1: "1", done1: "1", done2: "1", ph2: "show it on the high street", need2: "the test print, and Mrs K's OK", safe2: "1", ph3: "the set of six", need3: "two riso sessions and paper", budget: "40", end: "2026-11-06" },
+  people: [{ name: "Mrs K (newsagent)", ring: 1, help: ["reach", "test"], when: "now", aud: true, reached: true }, { name: "Sam", ring: 0, help: ["make"], when: "now" }, { name: "Jo", ring: 0, help: ["advice"], when: "later" }, { name: "Print shop staff", ring: 1, help: ["space", "make"], when: "now" }, { name: "Local history group", ring: 2, help: ["reach"], when: "later" }, { name: "A (baker)", ring: 2, help: ["test"], when: "now", aud: true, reached: true }, { name: "D (key cutter)", ring: 2, help: ["test"], when: "now", aud: true }, { name: "R (sign painter)", ring: 2, help: ["advice"], when: "no" }],
+  plan: { succ: "two shopkeepers ask to keep a poster", fail: "nobody outside my studio sees it", ph1: "one test print", need1: "a riso lesson at the print shop", safe1: "1", done1: "1", done2: "1", ph2: "show it on the high street", need2: "the test print, and Mrs K's OK", safe2: "1", ph3: "the set of six", need3: "two riso sessions and paper", budget: "40", end: "2026-11-06" },
   when: { P: "Monday evening", A: "Tuesday, 7 to 9am", M: "Wednesday in the print room", R: "Saturday morning" }, dur: { P: "45 minutes", A: "two hours", M: "one session", R: "one hour" }, coll: { P: true, A: true, M: true, R: true },
   tries: [{ t: "Make three quick versions of a set of six posters, changing only the size. Put them side by side and look.", n: 41, noticed: "the small one looked the most hand-made" }, { t: "Put one rough piece in three different places, changing nothing else. Note how it reads in each.", n: 27, noticed: "in the shop window, people read it as the shop's own sign", pull: true }, { t: "Toss a coin to decide the colour of your next piece, and make it the way the coin says.", n: 15, noticed: "the blue I'd never have picked works on the yellow paper" }],
   trycur: { ti: 1, vi: 0 },
@@ -1477,14 +1477,14 @@ const EXAMPLE = {
   mmx: [{ m: "photography", q: "fw" }, { m: "digital illustration", q: "fw" }, { m: "risograph", q: "uw" }, { m: "screen printing", q: "uw" }, { m: "sign-painting with a brush", q: "ui" }, { m: "ceramics", q: "ui" }, { m: "animation", q: "fi" }],
   pairs: { start: { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 1, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0 }, end: { 0: 0, 1: 0, 2: 1, 3: 1, 4: 0, 5: 1, 6: 1, 7: 1, 8: 1, 9: 0, 10: 0, 11: 0 }, why: "interpreter: I've always worked from someone else's brief" },
   paper: {
-    weeks: { 1: ["Six signs photographed", "Riso booked too late", "Waiting for the induction", "Print room tech"], 2: ["Test prints read from 10 m", "Blue ink too pale", "Paper ran out", "Sam, for a second pair of hands"], 3: ["Mrs K kept a poster", "Two layouts felt the same", "Nothing now", "Local history group"] },
+    weeks: { 1: ["Six signs photographed", "Riso booked too late", "Waiting for a lesson slot", "Print shop staff"], 2: ["Test prints read from 10 m", "Blue ink too pale", "Paper ran out", "Sam, for a second pair of hands"], 3: ["Mrs K kept a poster", "Two layouts felt the same", "Nothing now", "Local history group"] },
     grid: { 1: ["✓✓.✓.✗✗", ".✓✓✓..✗", "✓.✓✓✓.✓", "✗✗✗.✗✓."], 2: ["✓✓✓✓.✗✗", "..✓✓✓.✗", "✓✓.✓✓✓.", "✗✗✗✗.✓✓"], 3: ["✓✓✓✓✓✗✗", "✓.✓.✓..", "✓✓✓✓...", "✗✗.✗✗.."] },
     budget: ["£18 · paper and two inks", "£12 · two riso sessions", "£4 · bus to the print room", "£4"],
-    tasks: [["Book the riso induction", 0], ["Print one test sheet in two colours", 0], ["Photograph six signs on the high street", 0], ["Ask Mrs K about her sign", 1], ["Draft the six poster layouts", 1], ["Show test prints to Jo", 1], ["Buy paper", 2], ["Tidy the reference folder", 2], ["Redesign a logo for the project", 3]],
+    tasks: [["Book a riso lesson at the print shop", 0], ["Print one test sheet in two colours", 0], ["Photograph six signs on the high street", 0], ["Ask Mrs K about her sign", 1], ["Draft the six poster layouts", 1], ["Show test prints to Jo", 1], ["Buy paper", 2], ["Tidy the reference folder", 2], ["Redesign a logo for the project", 3]],
     log: [["Mon 19", "letters 12 pt, one ink", "unreadable at 10 m", 1], ["Mon 19", "letters 36 pt, one ink", "reads as printed", 1], ["Tue 20", "letters 36 pt, two inks", "reads as hand-made", 1], ["Wed 21", "letters 72 pt, two inks", "hand-made, but loud", 1], ["Thu 22", "letters 12 pt, two inks", "ink spread, reads best", 1], ["Fri 23", "letters 24 pt, two inks", "the one we keep", 1]]
   },
   started: Date.parse("2026-10-19T09:00:00"), done: Date.parse("2026-11-06T17:00:00"),
-  checkins: [{ at: Date.parse("2026-10-24T18:00:00"), q: "Is your brief clear?", notes: ["Six signs photographed", "Riso booked too late", "Waiting for the induction", "Print room tech"] },
+  checkins: [{ at: Date.parse("2026-10-24T18:00:00"), q: "Is your brief clear?", notes: ["Six signs photographed", "Riso booked too late", "Waiting for a lesson slot", "Print shop staff"] },
     { at: Date.parse("2026-10-31T18:00:00"), q: "Does your prototype work?", notes: ["Test prints read from 10 m", "Blue ink too pale", "Paper ran out", "Sam, for a second pair of hands"] },
     { at: Date.parse("2026-11-06T16:00:00"), q: "Does what you made do what your promise says?", notes: ["Mrs K kept a poster", "Two layouts felt the same", "Nothing now", "Local history group"] }],
   endHistory: [{ from: "2026-10-30", to: "2026-11-06", at: Date.parse("2026-10-24T18:05:00") }],
@@ -1878,7 +1878,7 @@ function renderPlan() {
     if (p.pairs) fl = [...Array(p.rows).keys()].map(i => `<div class="pair"><span class="w">${p.pairs[0]}</span>${inp(p.k + i + "a")}<span class="w">${p.pairs[1]}</span>${inp(p.k + i + "b")}<span class="w">${p.pairs[2] || ""}</span></div>`).join("");
     const nrows = Math.min(5, Math.max(3, (chainSteps().slice(-1)[0] || 0) + 1, +(S.plan.nsteps || 0)));
     if (p.chain) fl = [1, 2, 3, 4, 5].slice(0, nrows).map(i => `<div class="steprow"><span class="sn">${i}</span><div class="field"><label for="pl-ph${i}">${i === 1 ? "First" : "Then"}</label>${inp("ph" + i, ["e.g. one test print", "e.g. show it on the high street", "e.g. the set of six", "", ""][i - 1])}</div>
-      <div class="field"><label for="pl-need${i}">which needs</label>${inp("need" + i, ["e.g. a riso induction", "e.g. the test print, and Mrs K's OK", "e.g. two riso sessions and paper", "", ""][i - 1])}</div>
+      <div class="field"><label for="pl-need${i}">which needs</label>${inp("need" + i, ["e.g. a riso lesson at the print shop", "e.g. the test print, and Mrs K's OK", "e.g. two riso sessions and paper", "", ""][i - 1])}</div>
       <label class="safe"><input type="checkbox" data-safe="${i}"${S.plan["safe" + i] ? " checked" : ""}> I could stop here and still show something</label></div>`).join("") + (nrows < 5 ? `<div><button type="button" class="btn quiet" data-addstep="1">Add a step</button></div>` : "") + `<div class="chainread" id="chainread">${chainRead()}</div>`;
     if (p.money) fl = `<div class="field"><label for="pl-budget">What I can spend</label><div class="money"><span class="w">£</span>${inp("budget", "e.g. 40")}</div></div><p class="muted small" style="margin:0">On the printout: materials, services, transport and 10% to spare, adding up to this.</p>`;
     if (p.time) fl = `<div class="field"><label for="pl-end">The project ends on</label><input class="line" type="date" id="pl-end" data-plan="end" value="${esc(S.plan.end || "")}"></div>${(S.endHistory || []).length ? `<p class="small" style="margin:0">Moved ${S.endHistory.length === 1 ? "once" : S.endHistory.length + " times"}: ${S.endHistory.map(h => `${esc(fmtDay(Date.parse(h.from + "T12:00")))} → ${esc(fmtDay(Date.parse(h.to + "T12:00")))} <span class="muted">(on ${esc(fmtDay(h.at))})</span>`).join("; ")}. Moving the end is fine; keep moving it in the open.</p>` : ""}<p class="muted small" style="margin:0">Work in a fixed rhythm and keep every rest, even when work goes well (${opLink(21, "oplink-lab")}). The printout has a time grid for each week.</p>`;
@@ -1997,7 +1997,7 @@ function sheetHTML() {
     <h4>What kind of designer · at the start and now</h4>
     <div class="spairs"><div class="h">Pick one</div><div class="h">At the start</div><div class="h">Now</div>${PAIRS.map((o, i) => { const ps = pairsS(), a = ps.start[i], b = ps.end[i]; return `<div>${o.map(esc).join(" · ")}</div><div class="v">${a != null ? esc(o[a]) : ""}</div><div class="v">${b != null ? esc(o[b]) + (a != null && a !== b ? " ●" : "") : ""}</div>`; }).join("")}</div>
     <div class="grow"></div>
-    <div class="sfoot"><span>Adapted from the Project Planning Toolkit &amp; Workbook, Alejandro Ramos Saavedra</span><span>Spins from the Supermenu wheel</span></div></div></div>`;
+    <div class="sfoot"><span>Adapted from the Project Planning Toolkit &amp; Workbook, Alejandro Ramos Saavedra</span><span>Spins adapted from Supermenu · ramos-saavedra.com/supermenu</span></div></div></div>`;
   const pv = id => P(id);
   const pairLn = (p, i) => `<div class="ln"><span class="k">${p.pairs[0]}</span>${esc(pv(p.k + i + "a"))} <span class="k">${p.pairs[1]}</span>${esc(pv(p.k + i + "b"))} ${p.pairs[2] ? `<span class="k">${p.pairs[2]}</span>` : ""}</div>`;
   const st = chainSteps(), safeL = st.filter(i => S.plan["safe" + i]).pop();
