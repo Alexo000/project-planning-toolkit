@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://toolkit.ramos-saavedra.com/sitemap.xml
